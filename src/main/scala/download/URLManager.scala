@@ -4,7 +4,7 @@ object URLManager {
 
   private val prefix = "http://archives.assemblee-nationale.fr"
 
-  val indexes = for (leg <- 1 to 11) yield (this.prefix + "/" + leg + "/cri/index.asp")
+  private val indexes = for (leg <- 1 to 11) yield (this.prefix + "/" + leg + "/cri/index.asp")
 
   private def urlContentToString(url: String): String = {
     val html = Source.fromURL(url, "iso-8859-1")
@@ -25,7 +25,7 @@ object URLManager {
   private def catchSessionURL(line: String): String =
     line.substring((line indexOf "href=\"") + 6, (line indexOf "Compte rendu") - 2)
 
-  def sessionsURL(index: String): List[String] = {
+  private def sessionsURL(index: String): List[String] = {
     this.catchURL(
       index,
       {x: String => x contains "Compte rendu"}, 
@@ -35,11 +35,17 @@ object URLManager {
   private def catchPDFURL(line: String): String =
     line.substring((line indexOf "href=\"") + 6, (line indexOf ".pdf") + 4)
 
-  def pdfURL(session: String): List[String] = {
+  private def pdfURL(session: String): List[String] = {
     this.catchURL(
       session,
       {x: String => x contains ".pdf"},
       {x: String => this.prefix + "/" + (session charAt (this.prefix.length + 1)) + "/cri/" + this.catchPDFURL(x)})
   }
+
+  val pdfURLs = for {
+    index <- this.indexes
+    session <- this sessionsURL index
+    pdf <- this pdfURL session
+  } yield pdf
 
 }
