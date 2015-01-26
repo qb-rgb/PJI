@@ -15,9 +15,11 @@ object PDFDownloader {
   private def pdfPath(url: String): String = {
     val parts: List[String] = (url split '/').toList
     val legislature = parts(3)
-    val years = parts(5).substring(0, parts(5) lastIndexOf '-')
+    val part = parts(5)
+    val years = part.substring(0, part lastIndexOf '-')
+    val kind = part.substring((part lastIndexOf '-') + 1, part.length)
 
-    "./cri/" + legislature + "/" + years + "/"
+    "./cri/" + legislature + "/" + years + "/" + kind + "/"
   }
   
   /**
