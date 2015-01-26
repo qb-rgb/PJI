@@ -30,11 +30,14 @@ object PDFDownloader {
     val name = url substring ((url lastIndexOf '/') + 1)  
     val path = this.pdfPath(url)
     val pathDirs = new File(path)
+    val pdfURL = new URL(url)
 
-    if (!pathDirs.exists)
-      pathDirs.mkdirs
+    if (pdfURL.openConnection.getContentLength != -1) {
+      if (!pathDirs.exists)
+        pathDirs.mkdirs
 
-    new URL(url) #> new File(path + name) !!
+      pdfURL #> new File(path + name) !!
+    }
   }
 
 }
