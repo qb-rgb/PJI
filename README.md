@@ -21,6 +21,7 @@ Strucure
 
 Les sources sont organisées selon le schéma d'un projet SBT (Scala Build Tool), c'est à dire :
 
+```
 |_ build.sbt  
 |_ src  
 	|_ main  
@@ -32,6 +33,7 @@ Les sources sont organisées selon le schéma d'un projet SBT (Scala Build Tool)
 				|_ PDFDownloader.scala  
 				|_ URLManager.scala  
 	|_ test  
+```
 
 Cependant, toutes les sources sont écrites en *Scala* et se trouvent dans le package **download**.
 
@@ -47,6 +49,6 @@ $ sbt
 ```
 
 Où :  
-	- '$' est l'invite de commande du shell  
-	- '>' est l'invite de commande de sbt  
-	- 'X' est le nombre correspondant au Xième paquet de 100 PDFs à télécharger  
+- '$' est l'invite de commande du shell  
+- '>' est l'invite de commande de sbt  
+- 'X' est le nombre correspondant au Xième paquet de 100 PDFs à télécharger  
