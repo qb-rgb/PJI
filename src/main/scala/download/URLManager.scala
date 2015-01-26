@@ -39,7 +39,15 @@ object URLManager {
     this.catchURL(
       session,
       {x: String => x contains ".pdf"},
-      {x: String => this.prefix + "/" + (session charAt (this.prefix.length + 1)) + "/cri/" + this.catchPDFURL(x)})
+      {x: String => {
+        val splitSession = session split '/'
+        val leg = splitSession(3)
+
+        this.prefix + "/" +
+        leg +
+        "/cri/" +
+        this.catchPDFURL(x)
+      }})
   }
 
   val pdfURLs = for {
