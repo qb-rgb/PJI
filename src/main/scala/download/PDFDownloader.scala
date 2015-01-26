@@ -23,7 +23,7 @@ object PDFDownloader {
   }
   
   /**
-   * Downloads a PDF from the given URL.
+   * Downloads a PDF from the given URL
    *
    * @param url
    *          URL of the PDF
