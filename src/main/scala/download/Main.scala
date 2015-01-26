@@ -6,7 +6,11 @@ object Main {
   }
 
   def main(args: Array[String]): Unit = {
-    URLManager.pdfURLs foreach printAndDownload
+    val groupNb = args(0).toInt
+    val sortedURLs = URLManager.pdfURLs sortWith (_ < _)
+    val groupedURLs = (sortedURLs grouped 100).toList
+
+    groupedURLs(groupNb) foreach printAndDownload
   }
 
 }
