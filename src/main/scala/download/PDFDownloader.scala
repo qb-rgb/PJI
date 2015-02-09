@@ -11,6 +11,10 @@ import java.io.File
  */
 object PDFDownloader {
 
+  // List of the URLs sorted and grouped by 100
+  private val groupedURLs =
+    ((URLManager.pdfURLs sortWith (_ < _)) grouped 100).toList
+
   // Gives the local path of the PDF from its URL
   private def pdfPath(url: String): String = {
     val parts: List[String] = (url split '/').toList
@@ -41,5 +45,25 @@ object PDFDownloader {
       pdfURL #> new File(path + name) !!
     }
   }
+
+  // Downloads the PDF pointed bu the URL and print a trace
+  private def printAndDownload(pdfURL: String): Unit = {
+    this.downloadPDF(pdfURL)
+    println("Downloaded : " + pdfURL)
+  }
+
+  /**
+   * Dowloads all the PDFs
+   */
+  def downloadAll: Unit = URLManager.pdfURLs foreach printAndDownload
+
+  /**
+   * Downloads the nth group of 100 PDFs
+   *
+   * @param n
+   *          number of the group of PDF to download
+   */
+  def downloadGroupNb(n: Int): Unit =
+    this.groupedURLs(n) foreach printAndDownload
 
 }
