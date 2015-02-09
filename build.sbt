@@ -1,4 +1,4 @@
-name := "DownloadPDF"
+name := "PJI"
 
 version := "1.0"
 
