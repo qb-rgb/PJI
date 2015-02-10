@@ -4,8 +4,14 @@ import java.io.PrintWriter
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.util.PDFTextStripper
 
+/**
+ * Object to convert local PDF files in local text files
+ *
+ * @author Quentin Baert
+ */
 object PDFConverter {
 
+  // Create a local text path from a local pdf path
   private def txtFilePath(path: String): String = {
     val pathWithoutPrefix = path substring ((path indexOf "cri/") + 4)
     val pathWithoutSuffix =
@@ -14,6 +20,12 @@ object PDFConverter {
     "./critxt/" + pathWithoutSuffix
   }
 
+  /**
+   * Convert a PDF file to a text file from its local path
+   *
+   * @param path
+   *          path of the PDF file
+   */
   def convert(path: String): Unit = {
     val pdfFile = new File(path)
 
