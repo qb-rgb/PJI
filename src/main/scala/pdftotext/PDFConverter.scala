@@ -35,7 +35,7 @@ object PDFConverter {
       val textStripper = new PDFTextStripper()
       val pdfText = textStripper.getText(doc)
 
-      doc.close()
+      doc.close
 
       // To write the text file
       val nameTxt = (path substring ((path lastIndexOf '/') + 1)).replace(".pdf", ".txt")
