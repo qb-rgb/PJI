@@ -15,8 +15,14 @@ object PDFDownloader {
   private val groupedURLs =
     ((URLManager.pdfURLs sortWith (_ < _)) grouped 100).toList
 
-  // Gives the local path of the PDF from its URL
-  private def pdfPath(url: String): String = {
+  /**
+   * Gives the local path of the PDF from its URL
+   *
+   * @param url
+   *          url to convert in local path
+   * @return local path of the PDF from its URL
+   */
+  def pdfPath(url: String): String = {
     val parts: List[String] = (url split '/').toList
     val legislature = parts(3)
     val part = parts(5)
