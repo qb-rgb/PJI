@@ -6,7 +6,7 @@ import org.apache.pdfbox.util.PDFTextStripper
 
 object PDFConverter {
 
-  def txtFilePath(path: String): String = {
+  private def txtFilePath(path: String): String = {
     val pathWithoutPrefix = path substring ((path indexOf "cri/") + 4)
     val pathWithoutSuffix =
       pathWithoutPrefix.substring(0, (pathWithoutPrefix lastIndexOf '/') + 1)
