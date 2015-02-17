@@ -52,16 +52,18 @@ object PDFDownloader {
     }
   }
 
-  // Downloads the PDF pointed bu the URL and print a trace
-  private def printAndDownload(pdfURL: String): Unit = {
-    this.downloadPDF(pdfURL)
+  // Download a PDF aor print a error trace
+  private def downloadOrPrint(pdfURL: String): Unit = try {
+    this downloadPDF pdfURL
     println("Downloaded : " + pdfURL)
+  } catch {
+    case e: Exception => println("File " + pdfURL + " not found. Download aborted.")
   }
 
   /**
    * Dowloads all the PDFs
    */
-  def downloadAll: Unit = URLManager.pdfURLs foreach printAndDownload
+  def downloadAll: Unit = URLManager.pdfURLs foreach downloadOrPrint
 
   /**
    * Downloads the nth group of 100 PDFs
@@ -70,6 +72,6 @@ object PDFDownloader {
    *          number of the group of PDF to download
    */
   def downloadGroupNb(n: Int): Unit =
-    this.groupedURLs(n) foreach printAndDownload
+    this.groupedURLs(n) foreach downloadOrPrint
 
 }
