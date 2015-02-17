@@ -54,10 +54,7 @@ object PDFConverter {
       throw new IllegalArgumentException("File do not exists")
   }
 
-  /**
-   * Convert all the local PDF files to text files
-   */
-  def convertAll: Unit = {
+  val allLocalPDFsPaths: List[String] = {
     val urls = URLManager.pdfURLs
 
     def urlToLocalPath(url: String): String = {
@@ -66,8 +63,13 @@ object PDFConverter {
       PDFDownloader.pdfPath(url) + name
     }
 
-    val localPath = urls map urlToLocalPath
+    (urls map urlToLocalPath).toList
+  }
 
+  /**
+   * Convert all the local PDF files to text files
+   */
+  def convertAll: Unit = {
     def convertOrPrint(path: String): Unit = try {
       this.convert(path)
       println("Converted : " + path)
@@ -75,7 +77,7 @@ object PDFConverter {
       case e: Exception => println("File " + path + " not found. Conversion aborted.")
     }
 
-    localPath foreach convertOrPrint
+    this.allLocalPDFsPaths foreach convertOrPrint
   }
 
 }
