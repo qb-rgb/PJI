@@ -54,6 +54,9 @@ object PDFConverter {
       throw new IllegalArgumentException("File do not exists")
   }
 
+  /**
+   * List of all the local PDFs paths
+   */
   val allLocalPDFsPaths: List[String] = {
     val urls = URLManager.pdfURLs
 
