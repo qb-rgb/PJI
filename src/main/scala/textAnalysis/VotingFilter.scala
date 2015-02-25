@@ -26,12 +26,8 @@ object VotingFilter {
   
   // Criterion from which filter the text files
   private def votingFilter(file: String): Boolean =
-    (file contains "Annexe au procès-verbal") ||
-    (file contains "Annexe au proces-verbal") ||
-    (file contains "Annexe au proces verbal") ||
-    (file contains "annexe au procès-verbal") ||
-    (file contains "annexe au proces-verbal") ||
-    (file contains "annexe au proces verbal")
+    (file contains "ANNEXES AU PROCES-VERBAL") ||
+    (file contains "ANNEXES AU PROCÈS-VERBAL")
 
 
 }
