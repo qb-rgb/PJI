@@ -2,6 +2,8 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
+import java.util.regex.Pattern
+
 import scala.io.Source
 
 object VotingFilter {
@@ -23,12 +25,14 @@ object VotingFilter {
 
     findTxtFiles(root)
   }
-  
-  // Criterion from which filter the text files
-  private def votingFilter(file: String): Boolean =
-    (file contains "ANNEXES AU PROCES-VERBAL") ||
-    (file contains "ANNEXES AU PROCÈS-VERBAL")
 
+  // Pattern to find a file that contains a voting
+  private val pattern: Pattern =
+      Pattern.compile(
+        "annexes au proc[eèé]s[\\s*\\-]verbal",
+        Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE
+      )
+  
   /**
    * Filters all the local text files to find the voting ones
    */
@@ -37,14 +41,14 @@ object VotingFilter {
     // Determines if a file is a voting file or not
     def isScrutinPath(path: String): Boolean = {
       val source = Source.fromFile(path)("UTF-8")
-      val res = this.votingFilter(source.mkString)
+      val res = (this.pattern matcher source.mkString).find
       source.close
       res
     }
 
     // Change the local .txt file path to an other
     def txtPathToScrutinPath(path: String): String =
-      path.replace("critxt", "scrutin")
+      path.replace("critxt", "scrutins")
 
     // Copies a file in an other directory (local critxt folder to local scrutin folder)
     def cpTxtFile(path: String): Unit = {
