@@ -6,7 +6,7 @@ import java.util.regex.Pattern
 
 import scala.io.Source
 
-object VotingFilter {
+object VoteFilter {
 
   /**
    * List of all the local text paths
