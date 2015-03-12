@@ -1,0 +1,13 @@
+Introduction
+
+Choix des outils
+  1 - le langage Scala
+  2 - la bibliothèque pdfbox
+
+Travail réalisé
+  1 - Récupération des données
+  2 - Filtrage des données
+  3 - Mise en forme des données
+  4 - Création des bases de données
+
+Conclusion

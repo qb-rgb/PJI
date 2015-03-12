@@ -1,0 +1,64 @@
+\documentclass[a4paper,12pt,final]{article}
+% Pour une impression recto verso, utilisez plutôt ce documentclass :
+%\documentclass[a4paper,11pt,twoside,final]{article}
+
+\usepackage[english,francais]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{setspace}
+
+\usepackage[pdftex=true]{hyperref}
+
+\usepackage[french]{varioref}
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+\theoremstyle{definition}
+\newtheorem*{exmp}{Exemple}
+
+\newcommand{\reporttitle}{PJI (54) - Mais que font nos députés ? Une sociologie informatique du travail parlementaire} % Titre
+\newcommand{\reportauthor}{Quentin \textsc{Baert}} % Auteur
+\newcommand{\reportsubject}{Projet individuel} % Sujet
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\setlength{\parskip}{1ex} % Espace entre les paragraphes	
+
+\makeatletter
+\newcommand\verbfile[1]{%
+	\begingroup
+		\let\do\@makeother\dospecials
+		\obeyspaces\obeylines\ttfamily
+		\input#1\relax
+	\endgroup
+}
+\makeatother
+
+\hypersetup{
+    pdftitle={\reporttitle},%
+    pdfauthor={\reportauthor},%
+    pdfsubject={\reportsubject},%
+    pdfkeywords={rapport} {lille1} {master1} {Scala} {sociologie} {débutés}
+}
+
+\begin{document}
+	\include{title}
+  	\cleardoublepage % Dans le cas du recto verso, ajoute une page blanche si besoin
+  	\renewcommand{\contentsname}{Sommaire} % Dans le corps du document,avant la commande \tableofcontents.
+	\tableofcontents % Table des matières
+  	\sloppy          % Justification moins stricte : des mots ne dépasseront pas des paragraphes
+  	\cleardoublepage
+  	\include{remerciements}
+  	\cleardoublepage
+  	\include{intro}
+  	\cleardoublepage
+  	\include{dvlpmt}
+  	\cleardoublepage
+  	\include{concl}
+  	\cleardoublepage
+  	\include{biblio}
+  	\cleardoublepage
+  	\include{appendix}
+\end{document}
+
