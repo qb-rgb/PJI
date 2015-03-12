@@ -17,6 +17,15 @@ object PatternDictionnary {
     )
 
   /**
+   * Pattern that determines delimiters between votes in a file
+   */
+  val voteDelimiterPattern: Pattern =
+    Pattern.compile(
+      "scrutin\\s*\\(n[o°\\s+]\\s*(\\d+)\\)",
+      Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE
+    )
+
+  /**
    * Pattern that reprsents a french date
    */
   val frenchDatePattern: Pattern =
