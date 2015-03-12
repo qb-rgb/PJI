@@ -33,7 +33,7 @@ object VoteFilter {
     def isScrutinPath(path: String): Boolean = {
       val source = Source.fromFile(path)("UTF-8")
       val res =
-        (PatternDictionnary.voteDelimiterPattern matcher source.mkString).find
+        (PatternDictionnary.voteTextZoneDelimiterPattern matcher source.mkString).find
       source.close
       res
     }
