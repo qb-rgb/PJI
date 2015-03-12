@@ -1,5 +1,3 @@
-import java.util.Date
-
 /**
  * Represents a vote
  *
@@ -18,7 +16,7 @@ import java.util.Date
  * @author Quentin Baert
  */
 class Vote(
-  val date: Date,
+  val date: String,
   val number: Int,
   val suject: String,
   val voterNb: Int,
