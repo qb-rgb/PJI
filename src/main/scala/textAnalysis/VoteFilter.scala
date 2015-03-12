@@ -2,8 +2,6 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
-import java.util.regex.Pattern
-
 import scala.io.Source
 
 object VoteFilter {
@@ -26,13 +24,6 @@ object VoteFilter {
     findTxtFiles(root)
   }
 
-  // Pattern to find a file that contains a voting
-  private val pattern: Pattern =
-      Pattern.compile(
-        "annexes au proc[eèé]s[\\s*\\-]verbal",
-        Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE
-      )
-  
   /**
    * Filters all the local text files to find the voting ones
    */
@@ -41,7 +32,8 @@ object VoteFilter {
     // Determines if a file is a voting file or not
     def isScrutinPath(path: String): Boolean = {
       val source = Source.fromFile(path)("UTF-8")
-      val res = (this.pattern matcher source.mkString).find
+      val res =
+        (PatternDictionnary.voteDelimiterPattern matcher source.mkString).find
       source.close
       res
     }
