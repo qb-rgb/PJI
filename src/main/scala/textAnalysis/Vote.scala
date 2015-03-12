@@ -1,3 +1,5 @@
+import java.util.Date
+
 /**
  * Represents a vote
  *
