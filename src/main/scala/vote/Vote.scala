@@ -1,3 +1,5 @@
+import VoteDecision._
+
 /**
  * Represents a vote
  *
@@ -11,7 +13,7 @@
  *                         effective
  * @param forNb number of suffrage expressed for the vote
  * @param againstNb number of suffrage against the vote
- * @param voteAnalyse analyse of the vote
+ * @param voteDetails details of the vote
  *
  * @author Quentin Baert
  */
@@ -24,4 +26,4 @@ class Vote(
   val absoluteMajority: Int,
   val forNb: Int,
   val againstNb: Int,
-  val voteAnalyse: String)
+  val voteDetails: Map[Voter, VoteDecision])
