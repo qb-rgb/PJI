@@ -3,12 +3,7 @@
  *
  * @author Quentin Baert
  */
-object VoteDecision extends Enumeration {
-
-  type VoteDecision = Value
-
-  val For = Value
-  val Against = Value
-  val Abstention = Value
-
-}
+trait VoteDecision
+object For extends VoteDecision
+object Against extends VoteDecision
+object Abstention extends VoteDecision

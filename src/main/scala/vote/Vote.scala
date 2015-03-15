@@ -1,5 +1,3 @@
-import VoteDecision._
-
 /**
  * Represents a vote
  *
