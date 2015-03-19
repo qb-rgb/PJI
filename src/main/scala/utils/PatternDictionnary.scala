@@ -29,6 +29,46 @@ object PatternDictionnary {
    * Pattern that reprsents a french date
    */
   val frenchDatePattern: Pattern =
-    Pattern.compile("\\d{1,2}\\s+\\w+\\s+\\d{4}")
+    Pattern compile "\\d{1,2}\\s+\\w+\\s+\\d{4}"
+
+  /**
+   * Pattern to find a vote subject
+   */
+  val subjectPattern: Pattern =
+    Pattern.compile("(sur.+?\\.)\\n", Pattern.DOTALL)
+
+  // Build string to capture recap number
+  private def buildRecapString(recap: String): String =
+    recap.replace(" ", "\\s+") + "\\s+\\.+\\s+(\\d+)"
+
+  /**
+   * Pattern to find the number of voters
+   */
+  val nbOfVotersPattern: Pattern =
+    Pattern compile (this buildRecapString "Nombre de votants")
+
+  /**
+   * Pattern to find the number of expressed votes
+   */
+  val nbOfExpressedVotesPattern: Pattern =
+    Pattern compile (this buildRecapString "Nombre de suffrages exprimés")
+
+  /**
+   * Pattern to find the absolute majority
+   */
+  val absoluteMajorityPattern: Pattern =
+    Pattern compile (this buildRecapString "Majorité absolue")
+
+  /**
+   * Pattern to find the for votes number
+   */
+  val forNbPattern: Pattern =
+    Pattern compile (this buildRecapString "Pour l’adoption")
+
+  /**
+   * Pattern to find the against votes number
+   */
+  val againstNbPattern: Pattern =
+    Pattern compile (this buildRecapString "Contre")
 
 }
