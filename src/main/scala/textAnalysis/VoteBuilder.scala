@@ -85,6 +85,7 @@ class VoteBuilder(val voteText: String) {
     val absoluteMajority = this.getAbsoluteMajority
     val forNb = this.getForNb
     val againstNb = this.getAgainstNb
+    val adopted = forNb >= absoluteMajority
     println(nb)
     println(subject)
     println(nbOfVoters)
@@ -92,6 +93,7 @@ class VoteBuilder(val voteText: String) {
     println(absoluteMajority)
     println(forNb)
     println(againstNb)
+    println(adopted)
   }
 
 }
