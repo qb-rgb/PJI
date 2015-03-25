@@ -81,6 +81,10 @@ object PatternDictionnary {
    * Pattern to find the against votes number
    */
   val againstNbPattern: Pattern =
-    Pattern compile (this buildRecapString "Contre")
+    Pattern.compile(
+      this buildRecapString "Contre",
+      Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE
+    )
+
 
 }
