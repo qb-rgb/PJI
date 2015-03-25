@@ -86,22 +86,4 @@ object PatternDictionnary {
       Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE
     )
 
-  /**
-   * Pattern to determine if a vote is accepted or not
-   */
-  val accpetedVotePattern: Pattern =
-    Pattern.compile(
-      "L'Assembl[ée]e\\s+nationale\\s+a\\s+adopt[ée]",
-      Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE
-    )
-
-  /**
-   * Pattern to determine if a vote is accepted or not
-   */
-  val notAccpetedVotePattern: Pattern =
-    Pattern.compile(
-      "L'Assembl[ée]e\\s+nationale\\s+n'a\\s+adopt[ée]",
-      Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE
-    )
-
 }
