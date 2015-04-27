@@ -8,7 +8,12 @@
  *
  * @author Quentin Baert
  */
-class Voter(val firstName: String, val lastName: String, val party: String)
+class Voter(val firstName: String, val lastName: String, val party: String) {
+
+  override def toString: String =
+    firstName + " " + lastName + " : " + party
+
+}
 
 /**
  * Represents an anonymous voter
