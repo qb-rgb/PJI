@@ -27,4 +27,19 @@ class Vote(
   val forNb: Int,
   val againstNb: Int,
   val adopted: Boolean,
-  val voteDetails: List[(Voter, VoteDecision)])
+  val voteDetails: List[(Voter, VoteDecision)]) {
+
+  override def toString: String =
+    "Legislature              : " + this.legislature      + "\n" +
+    "Date                     : " + this.date             + "\n" +
+    "Numéro du scrutin        : " + this.number           + "\n" +
+    "Sujet du scrutin         : " + this.subject          + "\n" +
+    "Nombre de votant         : " + this.voterNb          + "\n" +
+    "Nombre de votes exprimés : " + this.expressedVotes   + "\n" +
+    "Majorité absolue         : " + this.absoluteMajority + "\n" +
+    "Pour                     : " + this.forNb            + "\n" +
+    "Contre                   : " + this.againstNb        + "\n" +
+    "Adopté                   : " + this.adopted          + "\n" +
+    "Votants                  : " + this.voteDetails
+
+}
