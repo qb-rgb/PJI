@@ -19,7 +19,7 @@
 class Vote(
   val date: String,
   val number: Int,
-  val suject: String,
+  val subject: String,
   val voterNb: Int,
   val expressedVotes: Int,
   val absoluteMajority: Int,
