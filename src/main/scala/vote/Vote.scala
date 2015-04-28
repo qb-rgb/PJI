@@ -26,4 +26,4 @@ class Vote(
   val forNb: Int,
   val againstNb: Int,
   val adopted: Boolean,
-  val voteDetails: Map[Voter, VoteDecision])
+  val voteDetails: List[(Voter, VoteDecision)])
