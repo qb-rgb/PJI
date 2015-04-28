@@ -29,6 +29,23 @@ class Vote(
   val adopted: Boolean,
   val voteDetails: List[(Voter, VoteDecision)]) {
 
+  def toCSV: String = {
+    def buildLine(voterCouple: (Voter, VoteDecision)): String = {
+      val (voter, decision) = voterCouple
+
+      "\"" + this.legislature + "\"" + ", " +
+      "\"" + this.date        + "\"" + ", " +
+      "\"" + this.number      + "\"" + ", " +
+      "\"" + this.subject     + "\"" + ", " +
+      "\"" + voter.party      + "\"" + ", " +
+      "\"" + voter.lastName   + "\"" + ", " +
+      "\"" + voter.firstName  + "\"" + ", " +
+      "\"" + decision         + "\""
+    }
+
+    (this.voteDetails map buildLine) mkString "\n"
+  }
+
   override def toString: String = {
     def coupleToString(c: (Voter, VoteDecision)): String =
       c._1.toString + " -> " + c._2.toString
