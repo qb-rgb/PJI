@@ -9,7 +9,7 @@ import java.util.regex.Matcher
  *
  * @author Quentin Baert
  */
-class VoteBuilder(val voteText: String) {
+class VoteBuilder(val voteText: String, val legislature: Int, val date: String) {
 
   private def buildMatcher(pattern: Pattern): Matcher =
     pattern matcher this.voteText
