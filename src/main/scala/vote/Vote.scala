@@ -29,7 +29,10 @@ class Vote(
   val adopted: Boolean,
   val voteDetails: List[(Voter, VoteDecision)]) {
 
-  override def toString: String =
+  override def toString: String = {
+    def coupleToString(c: (Voter, VoteDecision)): String =
+      c._1.toString + " -> " + c._2.toString
+
     "Legislature              : " + this.legislature      + "\n" +
     "Date                     : " + this.date             + "\n" +
     "Numéro du scrutin        : " + this.number           + "\n" +
@@ -40,6 +43,8 @@ class Vote(
     "Pour                     : " + this.forNb            + "\n" +
     "Contre                   : " + this.againstNb        + "\n" +
     "Adopté                   : " + this.adopted          + "\n" +
-    "Votants                  : " + this.voteDetails
+    "Votants                  : " + "\n" +
+      ((this.voteDetails map coupleToString) mkString "\n")
+  }
 
 }
