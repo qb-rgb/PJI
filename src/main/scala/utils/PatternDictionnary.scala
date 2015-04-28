@@ -95,4 +95,30 @@ object PatternDictionnary {
       Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE
     )
 
+  // To analyse a vote line
+  private def linePattern(word: String): Pattern =
+    Pattern.compile(
+      word + "\\s+:\\s+(\\d+)(.*?)\\.\\n",
+      Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE | Pattern.DOTALL
+    )
+
+  /**
+   * Pattern to analyse the against line of a group
+   */
+  val againstLinePattern: Pattern = linePattern("Contre")
+
+  /**
+   * Pattern to analyse the for line of a group
+   */
+  val forLinePattern: Pattern = linePattern("Pour")
+
+  /**
+   * Pattern to analyse the abstention line of a group
+   */
+  val abstentionLinePattern: Pattern =
+    Pattern.compile(
+      "Non-votant[s]?\\s+:\\s+(.*?)\\.\\n",
+      Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE | Pattern.DOTALL
+    )
+
 }
