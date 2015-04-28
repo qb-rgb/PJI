@@ -181,6 +181,9 @@ class VoteBuilder(val voteText: String, val legislature: Int, val date: String) 
     forVotes ++ againstVotes ++ absVotes
   }
 
+  /**
+   * Builds a vote from the vote text
+   */
   def build: Vote = {
     val nb = this.getNb
     val subject = this.getSubject
