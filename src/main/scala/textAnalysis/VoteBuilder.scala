@@ -85,7 +85,103 @@ class VoteBuilder(val voteText: String, val legislature: Int, val date: String) 
       -1
   }
 
-  def build: Unit = {
+  // Builds the list of the named voters
+  private def buildNamedList(votersString: String, group: String): List[Voter] =
+    if (votersString.isEmpty)
+      List()
+    else {
+      val punctuation = List('.', '/', ';', '\\', ':', ''', '"', '(', ')', '!',
+                             '?', '-', '_', '−')
+      // Set of words to remove
+      val toRemove = List("M", "MM", "", "Assemblée", "Nationale", "assemblée",
+                          "nationale", " ", "président", "séance")
+      // String without the polluting words
+      val cleanVotersString =
+        votersString.
+        filterNot(punctuation.contains).
+        split(" ").
+        filterNot(toRemove.contains).
+        dropWhile(word => !(('A' to 'Z') contains word.head)).
+        reverse.
+        dropWhile(word => !(('A' to 'Z') contains word.head)).
+        reverse.
+        mkString(" ")
+
+      // Names of the voters
+      val votersNames =
+        cleanVotersString.
+        split("\\bet\\b|,").
+        filter(name => name exists (('A' to 'Z') contains _))
+
+      // Build a Voter object from a name
+      def nameToVoter(name: String): Voter = {
+        val splitName = name.trim split " "
+
+        new Voter(splitName.head, splitName.tail mkString " ", group)
+      }
+
+      // List of named voters
+      (votersNames map nameToVoter).toList
+    }
+
+  // Builds the list of the unnamed voters
+  private def buildUnnamedList(namedNb: Int, nb: Int, group: String): List[Voter] =
+    (for (i <- namedNb until nb) yield new AnonymousVoter(group)).toList
+
+  // Builds the for and against voters list
+  private def analyseForAgainstVotersString(
+    votersString: String,
+    nb: Int,
+    group: String
+  ): List[Voter] = {
+    val named = this.buildNamedList(votersString, group)
+
+    named ++ this.buildUnnamedList(named.size, nb, group)
+  }
+
+  // Analyses a group vote text
+  private def groupAnalyse(group: String): List[(Voter, VoteDecision)] = {
+    // Group Name
+    val groupNameMatcher = PatternDictionnary.groupNamePattern matcher group
+    val groupName =
+      if (groupNameMatcher.find)
+        groupNameMatcher group 1
+      else "unknown"
+
+    // Against
+    val againstMatcher = PatternDictionnary.againstLinePattern matcher group
+    val (againstNb, againstStringVoters) =
+      if (againstMatcher.find)
+        ((againstMatcher group 1).toInt, againstMatcher group 2)
+      else (0, "")
+
+    val againstVoters =
+      this.analyseForAgainstVotersString(againstStringVoters, againstNb, groupName)
+    val againstVotes = againstVoters map (v => v -> Against)
+
+    // For
+    val forMatcher = PatternDictionnary.forLinePattern matcher group
+    val (forNb, forStringVoters) =
+      if (forMatcher.find)
+        ((forMatcher group 1).toInt, forMatcher group 2)
+      else (0, "")
+    val forVoters = this.analyseForAgainstVotersString(forStringVoters, forNb, groupName)
+    val forVotes = forVoters map (v => v -> For)
+
+    // Abstention
+    val absMatcher = PatternDictionnary.abstentionLinePattern matcher group
+    val absStringVoters =
+      if (absMatcher.find)
+        absMatcher group 1
+      else
+        ""
+    val absVoters = this.buildNamedList(absStringVoters, groupName)
+    val absVotes = absVoters map (v => v -> Abstention)
+
+    forVotes ++ againstVotes ++ absVotes
+  }
+
+  def build: Vote = {
     val nb = this.getNb
     val subject = this.getSubject
     val nbOfVoters = this.getNbOfVoters
