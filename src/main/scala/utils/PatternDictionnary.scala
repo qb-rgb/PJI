@@ -86,6 +86,9 @@ object PatternDictionnary {
       Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE
     )
 
+  /**
+   * Pattern to find a group name
+   */
   val groupNamePattern: Pattern =
     Pattern.compile(
       "Groupe\\s+([\\p{L}\\.\\s]+)\\s+\\(\\d+\\)\\s+:",
