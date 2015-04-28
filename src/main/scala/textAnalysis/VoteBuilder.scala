@@ -91,7 +91,7 @@ class VoteBuilder(val voteText: String, val legislature: Int, val date: String) 
       List()
     else {
       val punctuation = List('.', '/', ';', '\\', ':', ''', '"', '(', ')', '!',
-                             '?', '-', '_', '−')
+                             '?', '_', '−')
       // Set of words to remove
       val toRemove = List("M", "MM", "", "Assemblée", "Nationale", "assemblée",
                           "nationale", " ", "président", "séance")
