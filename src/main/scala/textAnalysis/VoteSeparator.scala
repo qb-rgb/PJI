@@ -53,9 +53,9 @@ class VoteSeparator(val text: String) {
     // Build a list with all the votes in
     def buildResList(indexes: List[Int], res: List[String]): List[String] =
       indexes match {
-        case Nil => res
+        case Nil      => res
         case x :: Nil => (this.votesTextArea substring x) :: res
-        case x :: y => {
+        case x :: y   => {
           val newElem = this.votesTextArea.substring(x, y.head)
           buildResList(y, res :+ newElem)
         }
