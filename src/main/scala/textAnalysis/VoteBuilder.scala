@@ -193,14 +193,31 @@ class VoteBuilder(val voteText: String, val legislature: Int, val date: String) 
     val forNb = this.getForNb
     val againstNb = this.getAgainstNb
     val adopted = forNb >= absoluteMajority
-    println(nb)
-    println(subject)
-    println(nbOfVoters)
-    println(nbOfExpressedVotes)
-    println(absoluteMajority)
-    println(forNb)
-    println(againstNb)
-    println(adopted)
+
+    val groupsTexts =
+      this.voteText.
+      split("(?=Groupe)").
+      filter(_ startsWith "Groupe")
+
+    val voters = groupsTexts.foldLeft(List[(Voter, VoteDecision)]())(
+      (acc: List[(Voter, VoteDecision)], group: String) =>
+        acc ++ this.groupAnalyse(group)
+    )
+
+    new Vote(
+      this.legislature,
+      this.date,
+      nb,
+      subject,
+      nbOfVoters,
+      nbOfExpressedVotes,
+      absoluteMajority,
+      forNb,
+      againstNb,
+      adopted,
+      voters
+    )
+
   }
 
 }
