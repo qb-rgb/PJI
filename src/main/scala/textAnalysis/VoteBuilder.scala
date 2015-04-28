@@ -11,9 +11,11 @@ import java.util.regex.Matcher
  */
 class VoteBuilder(val voteText: String, val legislature: Int, val date: String) {
 
+  // Build a matcher from the vote text
   private def buildMatcher(pattern: Pattern): Matcher =
     pattern matcher this.voteText
 
+  // Gives the number of the vote
   private def getNb: Int = {
     val matcher = this buildMatcher PatternDictionnary.voteDelimiterPattern
 
@@ -23,6 +25,7 @@ class VoteBuilder(val voteText: String, val legislature: Int, val date: String) 
       -1
   }
 
+  // Gives the subject of the vote
   private def getSubject: String = {
     val matcher = this buildMatcher PatternDictionnary.subjectPattern
 
@@ -32,6 +35,7 @@ class VoteBuilder(val voteText: String, val legislature: Int, val date: String) 
       "unknown"
   }
 
+  // Gives the number of voters of the vote
   private def getNbOfVoters: Int = {
     val matcher = this buildMatcher PatternDictionnary.nbOfVotersPattern
 
@@ -41,6 +45,7 @@ class VoteBuilder(val voteText: String, val legislature: Int, val date: String) 
       -1
   }
 
+  // Get the number of expressed votes
   private def getNbOfExpressedVotes: Int = {
     val matcher = this buildMatcher PatternDictionnary.nbOfExpressedVotesPattern
 
@@ -50,6 +55,7 @@ class VoteBuilder(val voteText: String, val legislature: Int, val date: String) 
       -1
   }
 
+  // Gives the absolute majority
   private def getAbsoluteMajority: Int = {
     val matcher = this buildMatcher PatternDictionnary.absoluteMajorityPattern
 
@@ -59,6 +65,7 @@ class VoteBuilder(val voteText: String, val legislature: Int, val date: String) 
       -1
   }
 
+  // Gives the number of votes which are "For"
   private def getForNb: Int = {
     val matcher = this buildMatcher PatternDictionnary.forNbPattern
 
@@ -68,6 +75,7 @@ class VoteBuilder(val voteText: String, val legislature: Int, val date: String) 
       -1
   }
 
+  // Gives the number of votes which are "Against"
   private def getAgainstNb: Int = {
     val matcher = this buildMatcher PatternDictionnary.againstNbPattern
 
