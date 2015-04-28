@@ -17,6 +17,7 @@
  * @author Quentin Baert
  */
 class Vote(
+  val legislature: Int,
   val date: String,
   val number: Int,
   val subject: String,
