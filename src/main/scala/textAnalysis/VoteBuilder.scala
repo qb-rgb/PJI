@@ -30,7 +30,7 @@ class VoteBuilder(val voteText: String, val legislature: Int, val date: String) 
     val matcher = this buildMatcher PatternDictionnary.subjectPattern
 
     if (matcher.find)
-      matcher group 1
+      (matcher group 1).replace("\n", " ")
     else
       "unknown"
   }
