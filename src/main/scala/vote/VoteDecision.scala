@@ -23,4 +23,8 @@ object Abstention extends VoteDecision {
 
 }
 
+object NonVoting extends VoteDecision {
+
+  override def toString: String = "non-votant"
+
 }
