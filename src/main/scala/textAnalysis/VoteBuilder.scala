@@ -171,15 +171,24 @@ class VoteBuilder(val voteText: String, val legislature: Int, val date: String) 
 
     // Abstention
     val absMatcher = PatternDictionnary.abstentionLinePattern matcher group
-    val absStringVoters =
+    val (absNb, absStringVoters) =
       if (absMatcher.find)
-        absMatcher group 1
-      else
-        ""
-    val absVoters = this.buildNamedList(absStringVoters, groupName)
+        ((absMatcher group 1).toInt, absMatcher group 2)
+      else (0, "")
+    val absVoters = this.analyseForAgainstVotersString(absStringVoters, absNb, groupName)
     val absVotes = absVoters map (v => v -> Abstention)
 
-    forVotes ++ againstVotes ++ absVotes
+    // Non-Voting
+    val nonVotingMatcher = PatternDictionnary.nonVotingLinePattern matcher group
+    val nonVotingStringVoters =
+      if (nonVotingMatcher.find)
+        nonVotingMatcher group 1
+      else
+        ""
+    val nonVotingVoters = this.buildNamedList(nonVotingStringVoters, groupName)
+    val nonVotingVotes = nonVotingVoters map (v => v -> NonVoting)
+
+    forVotes ++ againstVotes ++ absVotes ++ nonVotingVotes
   }
 
   /**
