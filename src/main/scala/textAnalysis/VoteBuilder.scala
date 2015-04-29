@@ -113,7 +113,14 @@ class VoteBuilder(val voteText: String, val legislature: Int, val date: String) 
       val votersNames =
         cleanVotersString.
         split("\\bet\\b|,").
-        filter(name => name exists (('A' to 'Z') contains _))
+        filter(name => name exists (('A' to 'Z') contains _)).
+        map(_ split " ").
+        map(_ filter (_.length > 0)).
+        map(_.dropWhile(word => !(('A' to 'Z') contains word.head))).
+        map(_.reverse).
+        map(_.dropWhile(word => !(('A' to 'Z') contains word.head))).
+        map(_.reverse).
+        map(words => words mkString " ")
 
       // Build a Voter object from a name
       def nameToVoter(name: String): Voter = {
