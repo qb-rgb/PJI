@@ -7,18 +7,20 @@ trait VoteDecision
 
 object For extends VoteDecision {
 
-  override def toString: String = "For"
+  override def toString: String = "pour"
 
 }
 
 object Against extends VoteDecision {
 
-  override def toString: String = "Against"
+  override def toString: String = "contre"
 
 }
 
 object Abstention extends VoteDecision {
 
-  override def toString = "Abstention"
+  override def toString: String = "abstention"
+
+}
 
 }
