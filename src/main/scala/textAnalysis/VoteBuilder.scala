@@ -100,7 +100,7 @@ class VoteBuilder(val voteText: String, val legislature: Int, val date: String) 
       val cleanVotersString =
         votersString.
         filterNot(punctuation.contains).
-        split(" ").
+        split("[ \n]").
         filterNot(toRemove.contains).
         dropWhile(word => !(('A' to 'Z') contains word.head)).
         reverse.
