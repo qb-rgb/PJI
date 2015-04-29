@@ -115,7 +115,12 @@ object PatternDictionnary {
   /**
    * Pattern to analyse the abstention line of a group
    */
-  val abstentionLinePattern: Pattern =
+  val abstentionLinePattern: Pattern = linePattern("Abstention[s]?")
+
+  /**
+   * Pattern to analyse the abstention line of a group
+   */
+  val nonVotingLinePattern: Pattern =
     Pattern.compile(
       "Non-votant[s]?\\s+:\\s+(.*?)\\.\\n",
       Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE | Pattern.DOTALL
