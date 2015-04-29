@@ -22,4 +22,4 @@ class Voter(val firstName: String, val lastName: String, val party: String) {
  * @param party political party of the anonymous voter
  */
 class AnonymousVoter(override val party: String)
-extends Voter("anonymous", "anonymous", party)
+extends Voter("anonyme", "anonyme", party)
