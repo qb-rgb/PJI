@@ -99,6 +99,7 @@ class VoteBuilder(val voteText: String, val legislature: Int, val date: String) 
       // String without the polluting words
       val cleanVotersString =
         votersString.
+        replace("-\n", "").
         filterNot(punctuation.contains).
         split("[ \n]").
         filterNot(toRemove.contains).
