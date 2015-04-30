@@ -4,6 +4,27 @@ import java.io.File
 
 object CSVBuilder {
 
+  /**
+   * List of all the vote text files paths for a legislature
+   *
+   * @param leg legislature
+   * @return all the vote text files paths for a legislature
+   */
+  def allScrutinTextPaths(leg: Int): List[String] = {
+    def findTxtFiles(root: File): List[String] =
+      if (root.isFile)
+        if (root.getName endsWith "txt")
+          List(root.getCanonicalPath)
+        else
+          List()
+      else
+        (root.listFiles).toList flatMap findTxtFiles
+
+      val root = new File("./scrutins/" + leg)
+
+      findTxtFiles(root)
+  }
+
   // Modifies a vote path to a csv path
   private def modifyPath(oldPath: String): (String, String) = {
     val fields = oldPath split "/"
