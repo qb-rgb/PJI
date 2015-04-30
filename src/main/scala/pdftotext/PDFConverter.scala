@@ -16,7 +16,7 @@ object PDFConverter {
     val pathWithoutPrefix = path substring ((path indexOf "cri/") + 4)
     val pathWithoutSuffix =
       pathWithoutPrefix.substring(0, (pathWithoutPrefix lastIndexOf '/') + 1)
-    
+
     "./critxt/" + pathWithoutSuffix
   }
 
