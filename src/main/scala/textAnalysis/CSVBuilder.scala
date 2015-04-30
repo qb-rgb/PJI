@@ -28,10 +28,10 @@ object CSVBuilder {
   // Modifies a vote path to a csv path
   private def modifyPath(oldPath: String): (String, String) = {
     val fields = oldPath split "/"
-    val fileName = fields.last.replace("txt", "csv")
-    val usefullFields = fields.tail.init.toList
+    val fileName = fields.last.replace(".txt", ".csv")
 
-    (("csv" :: usefullFields) mkString "/", fileName)
+    ((fields.init mkString "/").replace("scrutins", "csv"),
+    fileName)
   }
 
   /**
