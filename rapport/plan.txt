@@ -21,7 +21,5 @@ Objectifs de projet
   4.2 Extraction des données des scrutins
 
 5 Création des bases de données
-  5.1 Bases de données simples
-  5.2 Bases de données détaillées
 
 Conclusion
