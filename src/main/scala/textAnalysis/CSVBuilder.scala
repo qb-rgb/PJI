@@ -57,4 +57,15 @@ object CSVBuilder {
     pw.close
   }
 
+  /**
+   * Converts all the text files to CSV files for a legislature
+   *
+   * @param leg legislature
+   */
+  def buildAllCSVFor(leg: Int): Unit = {
+    val files = this allScrutinTextPaths leg
+
+    files foreach (file => buildCSVFileFrom(file, leg))
+  }
+
 }
