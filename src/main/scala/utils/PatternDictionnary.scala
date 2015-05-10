@@ -40,7 +40,7 @@ object PatternDictionnary {
 
   // Build string to capture recap number
   private def buildRecapString(recap: String): String =
-    recap.replace(" ", "\\s+") + "\\s+\\.+\\s+(\\d+)"
+    recap.replace(" ", "\\s+") + "\\s+[\\.\\s]*\\s+(\\d+)"
 
   /**
    * Pattern to find the number of voters
