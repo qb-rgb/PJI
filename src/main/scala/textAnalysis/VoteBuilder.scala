@@ -105,9 +105,9 @@ class VoteBuilder(val voteText: String, val legislature: Int, val date: String) 
         filterNot(punctuation.contains).
         split("[ \n]").
         filterNot(toRemove.contains).
-        dropWhile(word => !(('A' to 'Z') contains word.head)).
+        dropWhile(word => !(word exists (('A' to 'Z') contains _))).
         reverse.
-        dropWhile(word => !(('A' to 'Z') contains word.head)).
+        dropWhile(word => !(word exists (('A' to 'Z') contains _))).
         reverse.
         mkString(" ")
 
@@ -118,9 +118,10 @@ class VoteBuilder(val voteText: String, val legislature: Int, val date: String) 
         filter(name => name exists (('A' to 'Z') contains _)).
         map(_ split " ").
         map(_ filter (_.length > 0)).
-        map(_.dropWhile(word => !(('A' to 'Z') contains word.head))).
+        map(_ filterNot toRemove.contains).
+        map(_.dropWhile(word => !(word exists (('A' to 'Z') contains _)))).
         map(_.reverse).
-        map(_.dropWhile(word => !(('A' to 'Z') contains word.head))).
+        map(_.dropWhile(word => !(word exists (('A' to 'Z') contains _)))).
         map(_.reverse).
         map(words => words mkString " ")
 
