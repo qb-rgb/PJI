@@ -6,7 +6,7 @@ Objectifs de projet
 
 1 Choix des outils
   1.1 Le langage Scala
-  1.2 La bibliothèque pdfbox
+  1.2 SBT
 
 2 Récupération des données
   2.1 Organisation des PDF sur le site de l'AN
@@ -19,6 +19,7 @@ Objectifs de projet
 4 Mise en forme des données
   4.1 Représentation objet d'un scrutin
   4.2 Extraction des données des scrutins
+  4.3 Nettoyage des données
 
 5 Création des bases de données
 
