@@ -1,0 +1,32 @@
+Ensemble des modifications effectuées sur les fichiers textes afin qu'ils soient parsés correctement.
+
+------------------
+- Législature 10 -
+------------------
+
+1996 - 1997
+-----------
+
+ordinaire1/016.txt :
+    * '.' ajouté en fin de ligne 3740
+
+ordinaire1/092.txt :
+    * '.' ajoutés à la fin des sujets des scrutins
+
+ordinaire1/057.txt :
+    * '.' ajouté à la fin de la ligne 5261
+
+ordinaire1/125.txt :
+    * '.' ajouté à la fin de la ligne 5423
+    * '.' ajouté à la fin de la ligne 5463
+
+1994 - 1995
+-----------
+
+extraordinaire3/008.txt
+    * ligne 4748 "ASSEMBLÉE NATIONALE - SÉANCE DU 12 JUILLET 1995 39" supprimée
+    * espace "Ar thur Paecht" supprimé ligne 4789
+    * espace "J ean-Claude Paix" supprimé ligne 4789
+
+ordinaire1/084.txt
+    * ':' ajouté à la fin de la ligne 5266
