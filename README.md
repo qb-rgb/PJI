@@ -1,8 +1,8 @@
 PJI - DownloadPDF
 =================
 
-Auteur
-------
+Auteur(s)
+---------
 
 - Quentin Baert
 
