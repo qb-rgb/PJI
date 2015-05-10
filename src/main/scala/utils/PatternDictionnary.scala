@@ -29,7 +29,8 @@ object PatternDictionnary {
    * Pattern that reprsents a french date
    */
   val frenchDatePattern: Pattern =
-    Pattern compile "\\d{1,2}\\s+\\w+\\s+\\d{4}"
+    //Pattern compile "\\d{1,2}\\s+\\w+\\s+\\d{4}"
+    Pattern compile "\\d{1,2}\\s+\\p{L}+\\s+\\d{4}"
 
   /**
    * Pattern to find a vote subject
