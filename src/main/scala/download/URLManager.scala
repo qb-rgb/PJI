@@ -66,10 +66,10 @@ object URLManager {
   /**
    * List of all the PDF URLs to download
    */
-  val pdfURLs: List[String] = for {
+  val pdfURLs: List[String] = (for {
     index <- this.indexes
     session <- this sessionsURL index
     pdf <- this pdfURL session
-  } yield pdf
+  } yield pdf).toList
 
 }
