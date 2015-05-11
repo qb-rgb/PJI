@@ -1,5 +1,32 @@
 \section[Récupération des comptes rendus intégraux]{Récupération des comptes rendus intégraux de l'Assemblée nationale}
 
-\subsection{Organisation des PDF sur le site de l'Assemblée nationale}
+La première étape du projet est de récupérer les comptes rendus intégraux de l'Assemblée nationale depuis son site internet (\url{http://archives.assemblee-nationale.fr}) pour en extraire les données par la suite. Les sources du code qui sert à répondre à cette problématique se trouvent dans le package \verb|download|.
 
-\subsection{Récupération des PDF}
+\subsection{Organisation des PDFs sur le site de l'Assemblée nationale}
+
+Les PDFs à récupérer sont ceux des comptes rendus intégraux tenus entre 1958 et 2002. Cela représente une période qui s'étend de la première à la onzième législature.
+
+Le site de l'Assemblée nationale est organisé de la manière suivante : une page d'index par législature, chaque page d'index pointe sur des pages de sessions dans lesquels se trouvent les liens vers les PDFs. Par exemple pour la dixième législature, on observe l'arborescence suivante :
+\begin{verbatim}
+10/cri/index.asp
+|_ 10/cri/10-1996-1997-ordinaire1.asp
+   |_ 10/cri/1996-1997-ordinaire1/001.pdf
+   |_ 10/cri/1996-1997-ordinaire1/002.pdf
+   |_ ...
+|_ 10/cri/10-1995-1996-ordinaire1.asp
+|_ ...
+|_ 10/cri/10-1992-1993-extraordinaire3.asp
+\end{verbatim}
+Où \verb|index.asp| est la page d'index de la dixième législature, \verb|10/cri/10-1996-1997-ordinaire1.asp| un exemple d'URL de page de session et \verb|10/cri/1996-1997-ordinaire1/001.pdf| un exemple d'URL de PDF.
+
+Dans un premier temps, nous pensons à générer chacun des URLs des PDFs automatiquement en intégrant la logique de l'arborescence. Cependant, nous remarquons rapidement que certaines irrégularités nous feraient passer à côté de PDFs. Il existe par exemple des PDFs nommés \verb|14a.pdf| et dont on ne peut prévoir l'apparition dans l'arborescence.
+
+Afin de récupérer tous les URLs sans exceptions, nous avons décidé de récupérer le code HTML des pages d'index, d'y isoler les URLs des pages de sessions, de les convertir en chaine de caractères et de filtrer leur contenu pour de ne préserver que les URLs des PDFs. Ce traitement est éxécuté par l'objet Scala \verb|URLManager| qui fournis, à travers de son champs \verb|pdfURLs|, la liste des URLs de tous les PDFs.
+
+\textcolor{red}{Diagramme de classe ?}
+
+\subsection{Récupération des PDFs}
+
+Une fois tous les URLs recensés, il faut télécharger chacun des PDFs. La problématique ici est de garder une organisation locale proche de celle du site internet afin de pouvoir s'y retrouver au milieu de ces miliers de PDFs. Pour cela, l'URL du PDF est légérement modifié pour obtenir son chemin local qui est du type : \verb|cri/<législature>/<années>/<session>/<nom>.pdf|.
+
+\textit{Note : Parler de la possibilité de télécharger les PDFs par paquet de 100 pour éviter de surcharger les serveurs.}
