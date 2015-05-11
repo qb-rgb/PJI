@@ -6,7 +6,7 @@ Le sujet du projet n'impose aucune technologie particulière pour répondre aux 
 
 Scala est un langage de programmation multi-paradigme qui compile sur la Java Virtual Machine.
 
-Ce langage a été choisi car il intègre complétement les paradigmes de programmation orientée objet et de programmation fonctionnelle, le tout avec un typage statique. Cela permet dans un premier temps de retrouver des reflexes développés grâce à la pratique du Java et dans un second temps de continuer à découvrir le paradigme fonctionnel.
+Ce langage est utilisé pour ce projet car il intègre complétement les paradigmes de programmation orientée objet et de programmation fonctionnelle, le tout avec un typage statique. Cela permet dans un premier temps de retrouver des reflexes développés grâce à la pratique du Java et dans un second temps de continuer à découvrir le paradigme fonctionnel.
 
 De plus, Scala est un lanage qui compile sur la JVM. Il est donc possible d'utiliser les bibliothèques Java au sein d'un code écrit en Scala. Des classes écrites dans ces deux langages peuvent même être mixées dans un même projet, laissant ainsi la possibilité d'écrire du code en Java si le besoin apparait.
 
@@ -14,5 +14,5 @@ De plus, Scala est un lanage qui compile sur la JVM. Il est donc possible d'util
 
 SBT ou Scala Build Tool est un outil open source qui aide à construire une application Scala (potentiellement mixé avec des sources Java). Cet outil permet de compiler facilement un projet Scala, facilite l'integration de librairie extérieures ou de framework de tests. Il intègre également un interpréteur Scala.
 
-Il était compliqué d'écrire une suite de tests afin de tester le code écrit pour ce projet. Le code était très fortement spécifique aux documents de l'Assemblée nationale. De plus, il n'était au final destiné qu'à être éxécuté une seule fois pour récupérer les bases de données. Le test de l'application est donc d'obtenir les résultats attendus pour les documents étudiés.\newline
-Pour ces raisons et car le projet ne nécéssite pas de livrer un éxécutable, SBT a été grandement util. Le cycle de travail suivant peut être suivi : écrire le code, compiler les sources, démarrer l'interpréteur, créer les objets nécéssaires grâces aux documents et lancer directement le traitement.
+Il est compliqué d'écrire une suite de tests afin de vérifier le code écrit pour ce projet. Le code est fortement spécifique aux documents de l'Assemblée nationale. De plus, il n'est au final destiné qu'à être éxécuté une seule fois pour récupérer les bases de données. Le test de l'application est donc d'obtenir les résultats attendus pour les documents étudiés.\newline
+Pour ces raisons et car le projet ne nécéssite pas de livrer un éxécutable, SBT est grandement util. Il permet notamment de suivre le cycle de travail suivant : écrire le code, compiler les sources, démarrer l'interpréteur, créer les objets nécéssaires grâces aux documents et lancer directement le traitement.
