@@ -35,11 +35,11 @@ object URLManager {
   private def catchSessionURL(line: String): String =
     line.substring((line indexOf "href=\"") + 6, (line indexOf "Compte rendu") - 2)
 
-  // Generates all the session URLs from a index page 
+  // Generates all the session URLs from a index page
   private def sessionsURL(index: String): List[String] = {
     this.catchURL(
       index,
-      {x: String => x contains "Compte rendu"}, 
+      {x: String => x contains "Compte rendu"},
       {x: String => this.prefix + this.catchSessionURL(x)})
   }
 
