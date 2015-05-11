@@ -43,7 +43,7 @@ object URLManager {
       {x: String => this.prefix + this.catchSessionURL(x)})
   }
 
-  // Isolates a PDF URLs
+  // Isolates a PDF URL
   private def catchPDFURL(line: String): String =
     line.substring((line indexOf "href=\"") + 6, (line indexOf ".pdf") + 4)
 
