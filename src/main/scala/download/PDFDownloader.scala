@@ -31,7 +31,7 @@ object PDFDownloader {
 
     "./cri/" + legislature + "/" + years + "/" + kind + "/"
   }
-  
+
   /**
    * Downloads a PDF from the given URL
    *
@@ -39,7 +39,7 @@ object PDFDownloader {
    *          URL of the PDF
    */
   def downloadPDF(url: String): Unit = {
-    val name = url substring ((url lastIndexOf '/') + 1)  
+    val name = url substring ((url lastIndexOf '/') + 1)
     val path = this.pdfPath(url)
     val pathDirs = new File(path)
     val pdfURL = new URL(url)
