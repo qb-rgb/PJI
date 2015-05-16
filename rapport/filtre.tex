@@ -1,5 +1,24 @@
-\section{Transformation des PDFs}
+\section{Isolation des scrutins}
+
+Seule une partie des comptes-rendus comporte des données intéressantes pour ce projet. La prochaine étape est donc de trouver un moyen de filtrer les documents afin d'isoler ceux qui contiennent une ou plusieurs analyses de scrutins.
 
 \subsection{Convertion des PDFs en fichiers textes}
 
+Afin de pouvoir explorer et exploiter les données des PDFs, nous choisissons de transformer chacun d'eux en fichier texte. Pour cela, nous utilisons la librairie PDFBox (\url{https://pdfbox.apache.org/}).
+
+\subsubsection{La librairie PDFBox}
+
+PDFBox est une librairie Java open source qui permet de travailler avec des documents PDF. Elle permet notamment la création, la manipulation et la possibilité d'extraire du contenu de fichiers PDFs.
+
+L'utilisation de cette librairie est rendue possible grâce à la particularité de Scala de pouvoir utiliser des librairies Java. De plus, elle est très facilement importée dans le projet grâce à la simplicité d'utilisation de SBT.
+
+\subsubsection{Procédé}
+
+L'objet \verb|PDFConverter| du package \verb|pdftotext| procède à la convertion d'un PDF en fichier texte.\newline
+Pour cela, les PDFs sont récupérés grâce à leur chemin local. Ensuite, à l'aide des classes \verb|PDDocument| et \verb|PDFTextStripper| de la librairie PDFBox, le texte du document est récupéré. Puis, pour désigner le futur fichier texte, un nouveau chemin local est créer grâce au chemin du PDF. Enfin le contenu du PDF est écrit dans un nouveau fichier texte. Les chemins des fichiers textes sont du type : \verb|critxt/<législature>/<années>/<session>/<nom>.txt|. L'objet \verb|PDFConverter| contient une méthode \verb|convertAll| qui permet d'éxécuter ce traitement pour tous les PDFs téléchargés.
+
 \subsection[Analyse des fichiers textes pour isoler les scrutins]{Analyse des fichiers textes pour isoler ceux contenant des scrutins}
+
+Tous les documents qui concernent au moins une analyse de scrutin (et donc les documents qui nous intéréssent) possèdent un critère commun simple : ils ont tous, en fin de fichier, une partie annoncée par le titre : "Annexe au procès verbal". Ces fichiers sont isolés grâce à l'objet \verb|VoteFilter| du package \verb|textanalysis|.
+
+Le traitement de l'objet \verb|VoteFilter| se résume de la manière suivant : ce dernier ouvre chacun des fichiers textes pour en explorer le contenu. La phrase "Annexe au procès verbal" est recherché dans le fichier à l'aide d'une expression régulière Java. Si la phrase est trouvé, un nouveau chemin du type \verb|scrutin/<législature>/<années>/<session>/<nom>.txt| est donné au fichiers. L'objet comporte une méthode \verb|filterAllTxtFiles| qui isole tous les fichiers contenant l'analyse d'un ou plusieurs scrutins.
