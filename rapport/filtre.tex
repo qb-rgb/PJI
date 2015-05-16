@@ -1,4 +1,4 @@
-\section{Isolation des scrutins}
+\section{Isolement des scrutins}
 
 Seule une partie des comptes-rendus comporte des données intéressantes pour ce projet. La prochaine étape est donc de trouver un moyen de filtrer les documents afin d'isoler ceux qui contiennent une ou plusieurs analyses de scrutins.
 
@@ -17,7 +17,7 @@ L'utilisation de cette librairie est rendue possible grâce à la particularité
 L'objet \verb|PDFConverter| du package \verb|pdftotext| procède à la convertion d'un PDF en fichier texte.\newline
 Pour cela, les PDFs sont récupérés grâce à leur chemin local. Ensuite, à l'aide des classes \verb|PDDocument| et \verb|PDFTextStripper| de la librairie PDFBox, le texte du document est récupéré. Puis, pour désigner le futur fichier texte, un nouveau chemin local est créer grâce au chemin du PDF. Enfin le contenu du PDF est écrit dans un nouveau fichier texte. Les chemins des fichiers textes sont du type : \verb|critxt/<législature>/<années>/<session>/<nom>.txt|. L'objet \verb|PDFConverter| contient une méthode \verb|convertAll| qui permet d'éxécuter ce traitement pour tous les PDFs téléchargés.
 
-\subsection[Analyse des fichiers textes pour isoler les scrutins]{Analyse des fichiers textes pour isoler ceux contenant des scrutins}
+\subsection{Analyse des fichiers textes pour isoler les scrutins}
 
 Tous les documents qui concernent au moins une analyse de scrutin (et donc les documents qui nous intéréssent) possèdent un critère commun simple : ils ont tous, en fin de fichier, une partie annoncée par le titre : "Annexe au procès verbal". Ces fichiers sont isolés grâce à l'objet \verb|VoteFilter| du package \verb|textanalysis|.
 
