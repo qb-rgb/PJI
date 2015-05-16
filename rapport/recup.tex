@@ -23,8 +23,6 @@ Dans un premier temps, nous pensons à générer chacun des URLs des PDFs automa
 
 Afin de récupérer tous les URLs sans exceptions, nous avons décidé de récupérer le code HTML des pages d'index, d'y isoler les URLs des pages de sessions, de les convertir en chaine de caractères et de filtrer leur contenu pour de ne préserver que les URLs des PDFs. Ce traitement est éxécuté par l'objet \verb|URLManager| qui fournis, à travers son champs \verb|pdfURLs|, la liste des URLs de tous les PDFs.
 
-\textcolor{red}{Diagramme de classe ?}
-
 \subsection{Récupération des PDFs}
 
 Une fois tous ces URLs recensés, il est facile de tous les télécharger. L'objet \verb|PDFDownloader| possède une méthode \verb|downloadAll| qui permet de télécharger chacun des PDFs ou d'afficher un message en cas d'erreur de téléchargement. Cependant, étant donné que 8691 URLs ont été récupérés par l'objet \verb|URLManager|, une autre méthode \verb|downloadGroupNb| permet de télécharger les PDFs uniquement par groupe de 100 (ces groupes sont numérotés de 0 à 85). Dans notre cas, nous téléchargeons 1000 PDFs par jour, cela permet de rester courtois et de ne pas surcharger les serveurs de requêtes.
