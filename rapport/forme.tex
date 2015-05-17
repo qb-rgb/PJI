@@ -4,7 +4,7 @@ L'étape suivante consiste à explorer les analyses de scrutins afin d'en tirer 
 
 \subsection{Représentation objet d'un scrutin}
 
-Nous avons décidé de donner une représentation objet aux scrutins et à chacun de ses composants afin de pouvoir se détacher du texte le plus rapidement possible. Le texte ne sert ainsi qu'à construire les divers objets, les différents traitements (écriture des CSV, vérification de la cohérence des informations récupérées) sont ensuite écrits dans ces objets et éxécutés par ces derniers.
+Nous avons décidé de donner une représentation objet aux scrutins et à chacun de ses composants afin de pouvoir se détacher du texte le plus rapidement possible. Le texte ne sert ainsi qu'à construire les divers objets, les différents traitements (écriture des CSVs, vérification de la cohérence des informations récupérées) sont ensuite écrits dans ces objets et éxécutés par ces derniers.
 
 Toutes les classes qui servent à représenter un scrutin se trouvent dans le package \verb|vote|.
 
@@ -19,7 +19,7 @@ Les différentes décisions de vote sont représentées par les objets suivants 
 \end{itemize}
 
 \vspace{0.3cm}
-Le fait se s'abstenir est différent du fait de ne pas prendre part au vote. Les seuls députés qui ne prennent pas part au vote sont ceux qui ont une position particulière lors du vote : président de l'Assemblée nationale ou président de la séance par exemple.
+Le fait de s'abstenir est différent du fait de ne pas prendre part au vote. Les seuls députés qui ne prennent pas part au vote sont ceux qui ont une position particulière lors du vote : président de l'Assemblée nationale ou président de la séance par exemple.
 
 \subsubsection*{Les votants}
 
