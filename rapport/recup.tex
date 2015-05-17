@@ -6,7 +6,7 @@ La première étape du projet est de récupérer les comptes rendus intégraux d
 
 Les PDFs à récupérer sont ceux des comptes rendus intégraux tenus entre 1958 et 2002. Cela représente une période qui s'étend de la première à la onzième législature.
 
-Le site de l'Assemblée nationale est organisé de la manière suivante : une page d'index par législature, chaque page d'index pointe sur des pages de sessions dans lesquels se trouvent les liens vers les PDFs. Par exemple pour la dixième législature, on observe l'arborescence suivante :
+Le site de l'Assemblée nationale est organisé de la manière suivante : une page d'index par législature, chaque page d'index pointe sur des pages de sessions dans lesquelles se trouvent les liens vers les PDFs. Par exemple pour la dixième législature, on observe l'arborescence suivante :
 \begin{verbatim}
 10/cri/index.asp
 |-- 10/cri/10-1996-1997-ordinaire1.asp
@@ -21,12 +21,12 @@ Où \verb|index.asp| est la page d'index de la dixième législature, \verb|10/c
 
 Dans un premier temps, nous pensons à générer chacun des URLs des PDFs automatiquement en intégrant la logique de l'arborescence. Cependant, nous remarquons rapidement que certaines irrégularités nous feraient passer à côté de PDFs. Il existe par exemple des PDFs nommés \verb|14a.pdf| et dont on ne peut prévoir l'apparition dans l'arborescence.
 
-Afin de récupérer tous les URLs sans exceptions, nous avons décidé de récupérer le code HTML des pages d'index, d'y isoler les URLs des pages de sessions, de les convertir en chaine de caractères et de filtrer leur contenu pour de ne préserver que les URLs des PDFs. Ce traitement est éxécuté par l'objet \verb|URLManager| qui fournit, à travers son champs \verb|pdfURLs|, la liste des URLs de tous les PDFs.
+Afin de récupérer tous les URLs sans exception, nous avons décidé de récupérer le code HTML des pages d'index, d'y isoler les URLs des pages de sessions, de les convertir en chaine de caractères et de filtrer leur contenu pour de ne préserver que les URLs des PDFs. Ce traitement est éxécuté par l'objet \verb|URLManager| qui fournit, à travers son champ \verb|pdfURLs|, la liste des URLs de tous les PDFs.
 
 \subsection{Récupération des PDFs}
 
-Une fois tous ces URLs recensés, il est facile de tous les télécharger. L'objet \verb|PDFDownloader| possède une méthode \verb|downloadAll| qui permet de télécharger chacun des PDFs ou d'afficher un message en cas d'erreur de téléchargement. Cependant, étant donné que 8691 URLs ont été récupérés par l'objet \verb|URLManager|, une autre méthode \verb|downloadGroupNb| permet de télécharger les PDFs uniquement par groupe de 100 (ces groupes sont numérotés de 0 à 85). Dans notre cas, nous téléchargeons 1000 PDFs par jour, cela permet de rester courtois et de ne pas surcharger les serveurs de requêtes.
+Une fois tous ces URLs recensés, il est facile de tous les télécharger. L'objet \verb|PDFDownloader| possède une méthode \verb|downloadAll| qui permet de télécharger chacun des PDFs ou d'afficher un message en cas d'erreur de téléchargement. Cependant, étant donné que 8691 URLs ont été récupérés par l'objet \verb|URLManager|, une autre méthode \verb|downloadGroupNb| permet de télécharger les PDFs uniquement par groupe de 100 (ces groupes sont numérotés de 0 à 86). Dans notre cas, nous téléchargeons 1000 PDFs par jour, cela permet de rester courtois et de ne pas surcharger les serveurs de requêtes.
 
-Une autre problématique est de garder une organisation locale proche de celle du site internet afin de pouvoir s'y retrouver au milieu de ces miliers de PDFs. Pour cela, l'URL du PDF est légérement modifié pour obtenir son chemin local qui est du type : \verb|cri/<législature>/<années>/<session>/<nom>.pdf|.
+Une autre problématique est de garder une organisation locale proche de celle du site internet afin de pouvoir s'y retrouver au milieu de ces milliers de PDFs. Pour cela, l'URL du PDF est légèrement modifié pour obtenir son chemin local qui est du type : \verb|cri/<législature>/<années>/<session>/<nom>.pdf|.
 
 Après le téléchargement de ces quelques 8000 PDFs, tous les comptes rendus de l'Assemblée nationale de la première à la onzième législature se trouvent en local sur notre machine. Reste maintenant à trouver un moyen de filtrer et exploiter ces 17 giga octets de données.

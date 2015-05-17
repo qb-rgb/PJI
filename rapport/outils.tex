@@ -1,22 +1,22 @@
 \section{Choix des outils}
 
-Le sujet du projet n'impose aucune technologie particulière pour répondre aux différents objectifs, quelques objectifs personnels ont donc été ajouté aux différents objectifs du projet. L'un de ces buts personnels est d'uniquement utiliser le paradigme de programmation fonctionnel. C'est cette contrainte qui motive l'utilisation des outils suivants.
+Le sujet du projet n'impose aucune technologie particulière pour répondre aux différents objectifs, quelques objectifs personnels ont donc été ajoutés aux différents objectifs du projet. L'un de ces buts personnels est d'utiliser uniquement le paradigme de programmation fonctionnel. C'est cette contrainte qui motive l'utilisation des outils suivants.
 
 \subsection{Le langage Scala}
 
 Scala est un langage de programmation multi-paradigme qui compile sur la Java Virtual Machine.
 
-Ce langage est utilisé pour ce projet car il intègre complétement les paradigmes de programmation orientée objet et de programmation fonctionnelle, le tout avec un typage statique. Cela permet dans un premier temps de retrouver des reflexes développés grâce à la pratique du Java et dans un second temps de continuer à découvrir le paradigme fonctionnel.
+Ce langage est utilisé pour ce projet car il intègre complétement les paradigmes de programmation orientée objet et de programmation fonctionnelle, le tout avec un typage statique. Cela permet dans un premier temps de retrouver des réflexes développés grâce à la pratique du Java et dans un second temps de continuer à découvrir le paradigme fonctionnel.
 
 De plus, Scala est un lanage qui compile sur la JVM. Il est donc possible d'utiliser les bibliothèques Java au sein d'un code écrit en Scala. Des classes écrites dans ces deux langages peuvent même être mixées dans un même projet, laissant ainsi la possibilité d'écrire du code en Java si le besoin apparait.
 
 \subsection{SBT (Scala Build Tool)}
 
-SBT ou Scala Build Tool est un outil open source qui aide à construire une application Scala (qui contient potentiellement des sources Java). Cet outil permet de compiler facilement un projet Scala, facilite l'integration de librairie extérieures ou de framework de tests. Il intègre également un interpréteur Scala.
+SBT ou Scala Build Tool est un outil open source qui aide à construire une application Scala (qui contient potentiellement des sources Java). Cet outil permet de compiler facilement un projet Scala, facilite l'intégration de librairies extérieures ou de frameworks de tests. Il intègre également un interpréteur Scala.
 
 \newpage
 
-Afin de configurer un projet Scala avec SBT, il suffit de créer l'aborescence suivante :
+Afin de configurer un projet Scala avec SBT, il suffit de créer l'arborescence suivante :
 
 \begin{verbatim}
 build.sbt
@@ -34,4 +34,4 @@ src
 Le fichier \verb|build.sbt| contient toute la configuration du projet. Une copie en est fournie en annexe.
 
 Il est compliqué d'écrire une suite de tests afin de vérifier le code écrit pour ce projet. Le code est fortement spécifique aux documents de l'Assemblée nationale. De plus, il n'est au final destiné qu'à être éxécuté une seule fois pour récupérer les bases de données. Le test de l'application est donc d'obtenir les résultats attendus pour les documents étudiés.\newline
-Pour ces raisons et car le projet ne nécéssite pas de livrer un éxécutable, SBT est grandement util. Il permet notamment de suivre le cycle de travail suivant : écrire le code, compiler les sources, démarrer l'interpréteur, créer les objets nécéssaires grâces aux documents et lancer directement le traitement.
+Pour ces raisons et car le projet ne nécessite pas de livrer un éxécutable, SBT est grandement utile. Il permet notamment de suivre le cycle de travail suivant : écrire le code, compiler les sources, démarrer l'interpréteur, créer les objets nécessaires grâce aux documents et lancer directement le traitement.
