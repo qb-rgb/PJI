@@ -1,7 +1,57 @@
 \section{Récupération des données des scrutins}
 
+L'étape suivante consiste à explorer les analyses de scrutins afin d'en tirer les informatons nécessaires à la création des bases de données.
+
 \subsection{Représentation objet d'un scrutin}
 
+Nous avons décidé de donner une représentation objet aux scrutins et à chacun de ses composants afin de pouvoir se détacher du texte le plus rapidement possible. Le texte ne sert ainsi qu'à construire les divers objets, les différents traitements (écriture des CSV, vérification de la cohérence des informations récupérées) sont ensuite écrits dans ces objets et éxécutés par ces derniers.
+
+Toutes les classes qui servent à représenter un scrutin se trouvent dans le package \verb|vote|.
+
+\subsubsection*{Les décisions de vote}
+
+Les différentes décisions de vote sont représentées par les objets suivants :
+\begin{itemize}
+\item[-] \verb|For| pour un vote "pour",
+\item[-] \verb|Against| pour un vote "contre",
+\item[-] \verb|Abstention| pour une abstention de vote,
+\item[-] \verb|NonVoting| pour indiqué que le votant n'a pas pris part au vote.
+\end{itemize}
+
+\vspace{0.3cm}
+Le fait se s'abstenir est différent du fait de ne pas prendre part au vote. Les seuls députés qui ne prennent pas part au vote sont ceux qui ont une position particulière lors du vote : président de l'Assemblée nationale ou président de la séance par exemple.
+
+\subsubsection*{Les votants}
+
+Les votants sont représentés par la classe \verb|Voter|. Une instance de \verb|Voter| comporte le nom du votant, son prénom et son parti politique.
+
+Dans les scrutins récupérés, tous les votants ne sont pas explicitement cités. On sait par exemple que pour tel parti, 12 députés ont votés pour et 3 contre. C'est souvent le noms des 3 députés allant contre la majorité de leur parti qui sont donnés. Une seconde classe \verb|AnonymousVoter| a donc été écrite afin de représenter les votants dont on ne connait pas le nom. Cette classe étend la classe \verb|Voter| en fixant le nom et le prénom du votant à \verb|anonyme|.
+
+\subsubsection*{Les scrutins}
+
+Les scrutins sont représentés par des instances de la classe \verb|Vote|. Cette classe contient toutes les informations relatives au scrutin et qui serviront par la suite à créer la base de données, à savoir :
+\begin{itemize}
+\item[-] le numéro de la législature pendant laquelle s'est tenu le vote,
+\item[-] la date du vote,
+\item[-] le numéro du scrutin au sein de sa législature,
+\item[-] le sujet du scrutin,
+\item[-] le nombre de votants,
+\item[-] le nombre de votes exprimés,
+\item[-] la majorité absolue,
+\item[-] le nombre de votes pour,
+\item[-] le nombre de votes contre,
+\item[-] la décision finale, le scrutin a-t-il été adopté ou non,
+\item[-] le détail du scrutin, une structure qui donne pour chaque votant sa décision de vote.
+\end{itemize}
+
 \subsection{Extraction des données}
+
+Cette partie représente le coeur du projet. En effet, c'est ici que les données concrètes vont être récupérées depuis le texte de l'analyse du scrutin et stockées dans dans des objets de type \verb|Vote| précédemment décrit. L'objet \verb|VoteBuilder| du package \verb|textanalysis| se charge de récupérer ces données.
+
+La première étape consiste à analyser les fichiers textes afin de repérer la manière dont les données sont représentés dans les analyses de scrutin. Afin de repérer et récupérer les informations, les expressions régulières Java nous paraissent le meilleur moyen. En effet, grâce à la fonctionnalité de groupe, elles permettent d'isoler des données au milieu d'un pattern afin de simplement les récupérées par la suite, si le pattern est trouvé dans la zone de recherche. Les expressions régulières écrites pour ce projets se trouvent dans la classe utilitaire \verb|PatternDictionnary| du package \verb|utils|. Elles sont également toutes fournies en annexe de ce rapport. On y trouve par exemple l'expression \verb|\d{1,2}\s+\p{L}+\s+\d{4}| qui permet de reconnaitre dans le texte une date au format français.
+
+Ensuite, à partir du texte de l'analyse d'un scrutin, l'objet \verb|VoteBuilder| applique chacune des expressions régulières afin de trouver les parties du texte associées et d'en extraire les données. Il donne également une valeur par défauts au champs pour lesquels le pattern n'a pas été reconnus, permettant ainsi de retrouver les erreurs ou les cas anormaux.
+
+Toujours grâce à l'aide de SBT et de son interpreteur Scala, les expressions régulières sont testées sur des bouts de textes qu'elles sont censées repérer. Elles sont donc affinées à chaque essai et sont considérées comme viables une fois qu'elles parsent avec succès un certain nombre d'exemples.
 
 \subsection{Nettoyage des données}
