@@ -21,7 +21,7 @@ Où \verb|index.asp| est la page d'index de la dixième législature, \verb|10/c
 
 Dans un premier temps, nous pensons à générer chacun des URLs des PDFs automatiquement en intégrant la logique de l'arborescence. Cependant, nous remarquons rapidement que certaines irrégularités nous feraient passer à côté de PDFs. Il existe par exemple des PDFs nommés \verb|14a.pdf| et dont on ne peut prévoir l'apparition dans l'arborescence.
 
-Afin de récupérer tous les URLs sans exceptions, nous avons décidé de récupérer le code HTML des pages d'index, d'y isoler les URLs des pages de sessions, de les convertir en chaine de caractères et de filtrer leur contenu pour de ne préserver que les URLs des PDFs. Ce traitement est éxécuté par l'objet \verb|URLManager| qui fournis, à travers son champs \verb|pdfURLs|, la liste des URLs de tous les PDFs.
+Afin de récupérer tous les URLs sans exceptions, nous avons décidé de récupérer le code HTML des pages d'index, d'y isoler les URLs des pages de sessions, de les convertir en chaine de caractères et de filtrer leur contenu pour de ne préserver que les URLs des PDFs. Ce traitement est éxécuté par l'objet \verb|URLManager| qui fournit, à travers son champs \verb|pdfURLs|, la liste des URLs de tous les PDFs.
 
 \subsection{Récupération des PDFs}
 
