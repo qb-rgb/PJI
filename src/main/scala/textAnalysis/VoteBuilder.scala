@@ -96,7 +96,7 @@ class VoteBuilder(val voteText: String, val legislature: Int, val date: String) 
       val toRemove = List("M", "MM", "Mme", "", "Assemblée", "Nationale",
                           "assemblée", "nationale", " ", "président",
                           "séance", "Mmes", "l’Assemblée", "Gouvernement",
-                          "Président", "'Assemblée")
+                          "Président", "'Assemblée", "l'Assemblée")
 
       // String without the polluting words
       val cleanVotersString =
