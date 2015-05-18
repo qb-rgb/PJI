@@ -30,3 +30,8 @@ extraordinaire3/008.txt
 
 ordinaire1/084.txt
     * ':' ajouté à la fin de la ligne 5266
+
+ordinaire1/093.txt
+    * parenthèse ajoutée à "Groupe R.P .R . 1260) :" ligne 4861
+    * parenthèse ajoutée à "Groupe R.P .R . 1260) :" ligne 4861
+    * majuscule ajoutée à "Daniel fennec" ligne 4864
