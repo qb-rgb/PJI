@@ -1,14 +1,20 @@
 \section{Objectifs du projet}
 
-L'objectif de ce projet est de collecter l'ensemble des scrutins publics tenus à l'Assemblée nationale entre 1958 et 2002 et de les organiser dans une base de données.
-Les données initiales doivent être extraites de documents PDFs, nettoyées et présentées sous forme d'une base facilement interrogeable (sous forme d'un fichier CSV par exemple).
+Ce projet se place dans le cadre d'un projet collectif mené à l'ENS et à l'Université de Strasbourg qui a pour but de mieux connaître le fonctionnement des deux assemblées législatives française : l'Assemblée nationale et le Sénat.
 
-Les différentes étapes sont donc de :
+Son objectif est de collecter l'ensemble des scrutins publics tenus à l'Assemblée nationale entre 1958 et 2002 et d'organiser leur contenu dans une base de données facilement consultable (sous forme d'un fichier CSV par exemple). On trouvera dans cette base des champs tels que la date du scrutin, la législature durant laquelle il a été voté, son numéro, son sujet, ainsi que des information sur chacun des votants.
+
+Les données initiales doivent être extraites du texte de documents PDFs. Ces PDFs sont des journaux scannés pour la plupart, dont le texte est souvent organisé en plusieurs colones (voir ...). Il faut donc trouver un outil capable de prélever efficacement du texte des PDFs tout en conservant son ordre naturel. On en tirera ensuite les données nécessaires à la création de la base.
+
+
+Les différentes étapes de réalisation sont donc de :
 \begin{enumerate}
-\item récupérer tous les PDFs des comptes rendus intégraux sur le site de l'Assemblée nationale
-\item convertir ces PDFs en fichiers textes afin de pouvoir facilement travailler sur le contenu des comptes rendus
-\item filtrer les fichiers pour isoler ceux qui concernent des scrutins
-\item créer des fichiers CSV à partir des fichiers qui contiennent en effet un ou plusieurs scrutins
+\item récupérer tous les PDFs des comptes rendus intégraux sur le site de l'Assemblée nationale,
+\item trouver un moyen d'extraire le texte des PDFs afin de pouvoir travailler sur le contenu des comptes rendus,
+\item filtrer le texte obtenu pour isoler les scrutins,
+\item nettoyer les données afin qu'elles soient exploitables,
+\item créer un ou plusieurs fichiers CSV à partir des données prélevées.
 \end{enumerate}
 
+\vspace{0.3cm}
 La mise en place et les résultats de ces différentes étapes sont présentés dans la suite de ce rapport.
