@@ -1,1 +1,63 @@
 \appendix
+
+\part*{Annexes}
+
+\section*{Fichier build.sbt}\label{sbt}
+
+\verbfile{images/build.sbt}
+
+\vspace{1cm}
+On remarque l'import de la librairie PDFBox dans la dernière ligne du fichier.
+
+\newpage
+
+\section*{Architecure du projet}\label{archi}
+
+\begin{verbatim}
+src
+|-- main
+|   |-- java
+|   |-- resources
+|   |-- scala
+|       |-- download
+|       |   |-- PDFDownloader.scala
+|       |   |-- URLManager.scala
+|       |-- pdftotext
+|       |   |-- PDFConverter.scala
+|       |-- textAnalysis
+|       |   |-- CSVBuilder.scala
+|       |   |-- VoteBuilder.scala
+|       |   |-- VoteFilter.scala
+|       |   |-- VoteSeparator.scala
+|       |-- utils
+|       |   |-- PatternDictionnary.scala
+|       |-- vote
+|           |-- Vote.scala
+|           |-- VoteDecision.scala
+|           |-- Voter.scala
+|-- test
+    |-- java
+    |-- resources
+    |-- scala
+\end{verbatim}
+
+\newpage
+
+\section*{Expressions régulières utilisées}\label{expr}
+\verbfile{images/PatternDictionnary.scala}
+\newpage
+
+\section*{Schéma du traitement que subit un PDF}\label{schema}
+
+\begin{center}
+\includegraphics[scale=0.3,angle=90]{images/schema.jpg}
+\end{center}
+
+\newpage
+
+\thispagestyle{empty}
+\section*{Exemple de CSV généré}\label{CSV}
+
+\begin{center}
+\includegraphics[scale=0.4,angle=90]{images/csv.png}
+\end{center}

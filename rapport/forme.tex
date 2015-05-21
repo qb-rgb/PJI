@@ -4,7 +4,7 @@ L'étape suivante consiste à explorer les analyses de scrutins afin d'en tirer 
 
 \subsection{Représentation objet d'un scrutin}
 
-Nous avons décidé de donner une représentation objet aux scrutins et à chacun de ses composants afin de pouvoir se détacher du texte le plus rapidement possible. Le texte ne sert ainsi qu'à construire les divers objets, les différents traitements (écriture des CSVs, vérification de la cohérence des informations récupérées) sont ensuite écrits dans ces objets et éxécutés par ces derniers.
+Nous avons décidé de donner une représentation objet aux scrutins et à chacun de leurs composants afin de pouvoir se détacher du texte le plus rapidement possible. Le texte ne sert ainsi qu'à construire les divers objets, les différents traitements (écriture des CSVs, vérification de la cohérence des informations récupérées) sont ensuite écrits dans ces objets et éxécutés par ces derniers.
 
 Toutes les classes qui servent à représenter un scrutin se trouvent dans le package \verb|vote|.
 
@@ -46,9 +46,16 @@ Les scrutins sont représentés par des instances de la classe \verb|Vote|. Cett
 
 \subsection{Extraction des données}
 
-Cette partie représente le coeur du projet. En effet, c'est ici que les données concrètes vont être récupérées depuis le texte de l'analyse du scrutin et stockées dans dans des objets de type \verb|Vote| précédemment décrit. L'objet \verb|VoteBuilder| du package \verb|textanalysis| se charge de récupérer ces données.
+Cette partie représente le c\oe{}ur du projet. En effet, c'est ici que les données concrètes vont être récupérées depuis le texte de l'analyse du scrutin et stockées dans dans des objets de type \verb|Vote| précédemment décrit. L'objet \verb|VoteBuilder| du package \verb|textanalysis| se charge de récupérer ces données.
 
-La première étape consiste à analyser les fichiers textes afin de repérer la manière dont les données sont représentées dans les analyses de scrutin. Les expressions régulières Java nous paraissent être le meilleur moyen pour repérer et récupérer les informations. En effet, grâce à la fonctionnalité de groupe, elles permettent d'isoler des données au milieu d'un pattern afin de simplement les récupérer par la suite, si le pattern est trouvé dans la zone de recherche. Les expressions régulières écrites pour ce projet se trouvent dans la classe utilitaire \verb|PatternDictionnary| du package \verb|utils|. Elles sont également toutes fournies en annexe de ce rapport. On y trouve par exemple l'expression \verb|\d{1,2}\s+\p{L}+\s+\d{4}| qui permet de reconnaître dans le texte une date au format français.
+La première étape consiste à analyser les fichiers textes afin de repérer la manière dont les données sont représentées dans les analyses de scrutin. Les expressions régulières Java nous paraissent être le meilleur moyen pour repérer et récupérer les informations. En effet, grâce à la fonctionnalité de groupe, elles permettent d'isoler des données au milieu d'un pattern afin de simplement les récupérer par la suite, si le pattern est trouvé dans la zone de recherche. Les expressions régulières écrites pour ce projet se trouvent dans la classe utilitaire \verb|PatternDictionnary| du package \verb|utils|. Elles sont également toutes fournies en annexe de ce rapport. On y trouve par exemple l'expression \verb|\d{1,2}\s+\p{L}+\s+\d{4}| qui permet de reconnaître dans le texte une date au format français de cette manière :
+\begin{itemize}
+\item[-] \verb|\d{1, 2}| : capture un nombre composé d'un ou deux chiffres
+\item[-] \verb|\s+| : capture un ou plusieurs espaces
+\item[-] \verb|\p{L}+| : capture un ou plusieurs caractères unicode
+\item[-] \verb|\d{4}| : capture quatre chiffres
+\end{itemize}
+Ainsi, les dates \verb|2 mai 1992| ou \verb|10 décembre 2001| peuvent être capturées par cette expression.
 
 Ensuite, à partir du texte de l'analyse d'un scrutin, l'objet \verb|VoteBuilder| applique chacune des expressions régulières afin de trouver les parties du texte associées et d'en extraire les données. Il donne également une valeur par défaut aux champs pour lesquels le pattern n'a pas été reconnu, permettant ainsi de retrouver les erreurs ou les cas anormaux.
 

@@ -23,7 +23,7 @@ Dans un premier temps, nous pensons à générer chacun des URLs des PDFs automa
 
 Afin de récupérer tous les URLs sans exception, nous avons décidé de récupérer le code HTML des pages d'index et d'y isoler les URLs des pages de sessions, puis d'ouvrir ces pages de sessions pour y trouver les URLs des PDFs.
 
-Les pages d'index possèdent toutes la même structure : \verb|http://archives.assemblee-nationale.fr/<numéro législature>/cri/index.asp|. Leurs URLs sont donc générés automtiquement. Puis, nous utilisons l'objet Scala \verb|Source| et sa méthode \verb|fromURL| qui renvoit le code HTML de la page sous forme de chaine de caractères.
+Les pages d'index possèdent toutes la même structure : \verb|http://archives.assemblee-nationale.fr/<numéro législature>/cri/index.asp|. Leurs URLs sont donc générés automatiquement. Puis, nous utilisons l'objet Scala \verb|Source| et sa méthode \verb|fromURL| qui renvoit le code HTML de la page sous forme de chaine de caractères.
 
 Comme le montre la figure \ref{figure_index}, les pages de sessions sont référencées par des liens dont le texte est "Compte rendu intégral". Afin de trouver les liens des pages de sessions, nous isolons dans le code HTML les lignes qui contiennent les sous chaines \verb|href| (attribut HTML qui correspond à un lien) et "Compte rendu intégral".
 
