@@ -31,7 +31,7 @@ object PDFDownloader {
 
     "./cri/" + legislature + "/" + years + "/" + kind + "/"
   }
-  
+
   /**
    * Downloads a PDF from the given URL
    *
@@ -39,7 +39,7 @@ object PDFDownloader {
    *          URL of the PDF
    */
   def downloadPDF(url: String): Unit = {
-    val name = url substring ((url lastIndexOf '/') + 1)  
+    val name = url substring ((url lastIndexOf '/') + 1)
     val path = this.pdfPath(url)
     val pathDirs = new File(path)
     val pdfURL = new URL(url)
@@ -64,6 +64,20 @@ object PDFDownloader {
    * Dowloads all the PDFs
    */
   def downloadAll: Unit = URLManager.pdfURLs foreach downloadOrPrint
+
+  /**
+   * Downloads all the PDF of a given legislature
+   *
+   * @param leg
+   *    number of the legislature
+   */
+  def downloadLeg(leg: Int): Unit = {
+    val legNum = "/" + leg + "/"
+    val urls = URLManager.pdfURLs filter (_ contains legNum)
+
+    // urls foreach downloadOrPrint
+    urls foreach println
+   }
 
   /**
    * Downloads the nth group of 100 PDFs
