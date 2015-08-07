@@ -136,6 +136,15 @@ $ sbt
 scala> PDFDownloader.downloadAll
 ```
 
+* Pour récupérer les PDF de la n-ième législature
+
+```
+$ sbt
+> compile
+> console
+scala> PDFDownloader downloadLeg Y
+```
+
 * Pour récupérer le n-ième paquet de 100 PDF
 
 ```
@@ -169,7 +178,7 @@ scala> VoteFilter.filterAllTxtFiles
 sbt
 > compile
 > console
-scala> CSVBuilder buildAllCSVFor Y
+scala> CSVBuilder buildAllCSVFor Z
 ```
 
 Où :  
@@ -177,4 +186,5 @@ Où :
 - `>` est l'invite de commande de sbt  
 - `scala>` est l'invite de commande de l'interpréteur Scala  
 - `X` est le nombre correspondant au Xième paquet de 100 PDF à télécharger  
-- `Y` est le numéro de la législature dont on souhaite obtenir les CSV
+- `Y` est le numéro de la législature dont on souhaite télécharger les PDF
+- `Z` est le numéro de la législature dont on souhaite obtenir les CSV
