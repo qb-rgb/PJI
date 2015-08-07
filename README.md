@@ -136,15 +136,6 @@ $ sbt
 scala> PDFDownloader.downloadAll
 ```
 
-* Pour récupérer les PDF de la n-ième législature
-
-```
-$ sbt
-> compile
-> console
-scala> PDFDownloader downloadLeg Y
-```
-
 * Pour récupérer le n-ième paquet de 100 PDF
 
 ```
@@ -152,6 +143,15 @@ $ sbt
 > compile
 > console
 scala> PDFDownloader downloadGroupNb X
+```
+
+* Pour récupérer les PDF de la n-ième législature
+
+```
+$ sbt
+> compile
+> console
+scala> PDFDownloader downloadLeg Y
 ```
 
 ## Conversion des PDF en fichiers texte
