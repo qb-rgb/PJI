@@ -75,8 +75,7 @@ object PDFDownloader {
     val legNum = "/" + leg + "/"
     val urls = URLManager.pdfURLs filter (_ contains legNum)
 
-    // urls foreach downloadOrPrint
-    urls foreach println
+    urls foreach downloadOrPrint
    }
 
   /**
