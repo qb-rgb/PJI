@@ -1,0 +1,25 @@
+\section{Résultats}
+
+Comme dit précédemment, le but de ce projet est de générer une base de données qui contienne l'ensemble des scrutins des dix premières législatures de la cinquième République. Les étapes de récupération et d'isolement des scrutins sont fonctionnelles, pour l'ensemble des documents. Cependant, lors de la récupération des PDFs, nous avons constaté que la grande majorité d'entre eux sont en fait des scans de comptes rendus probablement tapés à la machine à écrire (comme le montre la figure \ref{old_scrutin_pdf}). Nous avons alors constaté que la transformation en fichiers textes n'était pas de très bonne qualité (voir la figure \ref{liste_noms_pourris}). À ce moment, l'objectif du projet a été réduit à construire une base qui contient le plus de scrutins possible, en partant de la législature la plus récente.
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.46]{images/old_scrutin_pdf.png}
+\caption{Extrait de PDF présentant un scrutin tapé à la machine}
+\label{old_scrutin_pdf}
+\end{center}
+\end{figure}
+
+\newpage
+
+\begin{figure}
+\verbfile{images/091_pourri.txt}
+\caption{Liste de noms mal traduit au format texte}
+\label{liste_noms_pourris}
+\end{figure}
+
+Partant de cette nouvelle considération, le code de récupération et de transformation des données est écrit pour les documents de la dixième législature. Il s'agit de voir ensuite à quel point il s'étend au reste des documents. Au moment où ces lignes sont écrites, seule une partie de la dixième législature est correctement prise en compte par le code. Actuellement, les données d'une trentaine de fichiers, soit environ soixante-quinze scrutins, sont correctement converties en fichiers CSV.
+
+La travail continue donc en étudiant chaque document au cas par cas afin d'affiner le code et de faire en sorte que les scrutins soient convenablement traités, tout en veillant à ne pas régresser sur les fichiers correctement parsés. Les erreurs sont souvent résolues en élargissant la tolérance des expressions régulières qui capturent les données mais également en affinant la manière dont les données sont nettoyées. Néanmoins, il faut parfois modifier directement le fichier texte pour qu'il soit correctement analysé. Des erreurs qui ne peuvent être contournées par le code existent dans certains fichiers : une virgule manquante ou un retour à la ligne absent alors qu'ils étaient censés séparer deux noms de députés par exemple. Ces erreurs sont sûrement dûes au passage du format PDF au format texte ou directement dûes à une erreur de frappe dans le compte rendu original, et nous ne pouvons agir sur ces deux aspects.
+
+Il est fort probable que le code actuel puisse être étendu jusqu'à englober la totalité de la dixième législature. Pourtant la qualité des fichiers textes baisse rapidement et nous pensons qu'une partie du code, notamment la capture et le nettoyage des données, devra être réécrite lorsque nous nous intéresseront aux législatures plus anciennes. Il se peut même que les données soient tellement sales qu'il faille envisager une autre solution que la traduction en fichier texte afin d'y avoir accès.

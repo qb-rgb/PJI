@@ -7,6 +7,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[pdftex]{graphicx}
 \usepackage{setspace}
+\usepackage[left=3cm,right=3cm]{geometry}
 
 \usepackage[pdftex=true]{hyperref}
 
@@ -16,6 +17,8 @@
 \usepackage{amsthm}
 \usepackage{amssymb}
 
+\onehalfspacing
+
 \theoremstyle{definition}
 \newtheorem*{exmp}{Exemple}
 
@@ -23,15 +26,15 @@
 \newcommand{\reportauthor}{Quentin \textsc{Baert}} % Auteur
 \newcommand{\reportsubject}{Projet individuel} % Sujet
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
-\setlength{\parskip}{1ex} % Espace entre les paragraphes	
+\setlength{\parskip}{1ex} % Espace entre les paragraphes
 
 \makeatletter
 \newcommand\verbfile[1]{%
-	\begingroup
-		\let\do\@makeother\dospecials
-		\obeyspaces\obeylines\ttfamily
-		\input#1\relax
-	\endgroup
+    \begingroup
+        \let\do\@makeother\dospecials
+        \obeyspaces\obeylines\ttfamily
+        \input#1\relax
+    \endgroup
 }
 \makeatother
 
@@ -39,26 +42,36 @@
     pdftitle={\reporttitle},%
     pdfauthor={\reportauthor},%
     pdfsubject={\reportsubject},%
-    pdfkeywords={rapport} {lille1} {master1} {Scala} {sociologie} {débutés}
+    pdfkeywords={rapport} {lille1} {master1} {Scala} {sociologie} {députés}
 }
 
 \begin{document}
-	\include{title}
-  	\cleardoublepage % Dans le cas du recto verso, ajoute une page blanche si besoin
-  	\renewcommand{\contentsname}{Sommaire} % Dans le corps du document,avant la commande \tableofcontents.
-	\tableofcontents % Table des matières
-  	\sloppy          % Justification moins stricte : des mots ne dépasseront pas des paragraphes
-  	\cleardoublepage
-  	\include{remerciements}
-  	\cleardoublepage
-  	\include{intro}
-  	\cleardoublepage
-  	\include{dvlpmt}
-  	\cleardoublepage
-  	\include{concl}
-  	\cleardoublepage
-  	\include{biblio}
-  	\cleardoublepage
-  	\include{appendix}
+    \include{title}
+      \cleardoublepage % Dans le cas du recto verso, ajoute une page blanche si besoin
+      \renewcommand{\contentsname}{Sommaire} % Dans le corps du document,avant la commande \tableofcontents.
+    \tableofcontents % Table des matières
+      \sloppy          % Justification moins stricte : des mots ne dépasseront pas des paragraphes
+      \cleardoublepage
+      \include{remerciements}
+      \cleardoublepage
+      \include{intro}
+      \cleardoublepage
+      \include{objectifs}
+      \cleardoublepage
+      \include{outils}
+      \cleardoublepage
+      \include{recup}
+      \cleardoublepage
+      \include{filtre}
+      \cleardoublepage
+      \include{forme}
+      \cleardoublepage
+      \include{resultats}
+      \cleardoublepage
+      \include{concl}
+      \cleardoublepage
+      \include{appendix}
+      \cleardoublepage
+      \include{biblio}
 \end{document}
 

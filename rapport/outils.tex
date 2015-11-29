@@ -1,0 +1,15 @@
+\section{Choix des outils}
+
+\subsection{Le langage Scala}
+
+Scala est un langage de programmation multi-paradigme qui compile sur la Java Virtual Machine.
+
+Ce langage est utilisé pour ce projet car il intègre complétement le paradigme de programmation orienté objet, ce qui permet de retrouver des réflexes développés grâce à la pratique du Java. Son système de type, statique et inféré, offre une facilité au débuggage couplée à une syntaxe allégée. Scala intègre également complétement le paradigme de programmation fonctionnelle, permettant donc une gestion améliorée des collections grâce aux opérations comme \verb|map|, \verb|filter| ou \verb|fold|. Enfin, comme Scala est un lanage qui compile sur la JVM, il est possible d'utiliser les bibliothèques Java au sein d'un code écrit en Scala, ce qui a donné la possibilité d'utiliser la librairie PDFBox comme nous l'exposerons plus tard.
+
+\subsection{SBT (Scala Build Tool)}
+
+SBT ou Scala Build Tool est un outil open source qui aide à construire une application Scala (qui contient potentiellement des sources Java). Cet outil permet de compiler facilement un projet Scala, facilite l'intégration de librairies extérieures ou de frameworks de tests. Il intègre également un interpréteur Scala. SBT se configure grâce à un fichier \verb|build.sbt|. Une copie du fichier utilisé pour ce projet est fournie en annexe.
+
+Un projet construit à l'aide de SBT propose une architecture particulière. L'architecture complète du projet est également fournie en annexe.
+
+L'utilisation de SBT a permit de suivre le cycle de travail suivant : écrire le code, compiler les sources, démarrer l'interpréteur, créer les objets nécessaires grâce aux documents et lancer directement le traitement.

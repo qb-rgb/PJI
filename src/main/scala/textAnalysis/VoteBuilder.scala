@@ -96,7 +96,7 @@ class VoteBuilder(val voteText: String, val legislature: Int, val date: String) 
       val toRemove = List("M", "MM", "Mme", "", "Assemblée", "Nationale",
                           "assemblée", "nationale", " ", "président",
                           "séance", "Mmes", "l’Assemblée", "Gouvernement",
-                          "Président", "'Assemblée")
+                          "Président", "'Assemblée", "l'Assemblée")
 
       // String without the polluting words
       val cleanVotersString =
@@ -166,7 +166,6 @@ class VoteBuilder(val voteText: String, val legislature: Int, val date: String) 
       if (againstMatcher.find)
         ((againstMatcher group 1).toInt, againstMatcher group 2)
       else (0, "")
-
     val againstVoters =
       this.analyseForAgainstVotersString(againstStringVoters, againstNb, groupName)
     val againstVotes = againstVoters map (v => v -> Against)
@@ -194,8 +193,7 @@ class VoteBuilder(val voteText: String, val legislature: Int, val date: String) 
     val nonVotingStringVoters =
       if (nonVotingMatcher.find)
         nonVotingMatcher group 1
-      else
-        ""
+      else ""
     val nonVotingVoters = this.buildNamedList(nonVotingStringVoters, groupName)
     val nonVotingVotes = nonVotingVoters map (v => v -> NonVoting)
 

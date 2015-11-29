@@ -1,0 +1,115 @@
+\section{Récupération des données des scrutins}
+
+L'étape suivante consiste à explorer les analyses de scrutins afin d'en tirer les informations nécessaires à la création des bases de données.
+
+\subsection{Représentation objet d'un scrutin}
+
+Nous avons décidé de donner une représentation objet aux scrutins et à chacun de leurs composants afin de pouvoir se détacher du texte le plus rapidement possible. Le texte ne sert ainsi qu'à construire les divers objets, les différents traitements (écriture des CSVs, vérification de la cohérence des informations récupérées) sont ensuite écrits dans ces objets et éxécutés par ces derniers.
+
+Toutes les classes qui servent à représenter un scrutin se trouvent dans le package \verb|vote|.
+
+\subsubsection*{Les décisions de vote}
+
+Les différentes décisions de vote sont représentées par les objets suivants :
+\begin{itemize}
+\item[-] \verb|For| pour un vote "pour",
+\item[-] \verb|Against| pour un vote "contre",
+\item[-] \verb|Abstention| pour une abstention de vote,
+\item[-] \verb|NonVoting| pour indiqué que le votant n'a pas pris part au vote.
+\end{itemize}
+
+\vspace{0.3cm}
+Le fait de s'abstenir est différent du fait de ne pas prendre part au vote. Les seuls députés qui ne prennent pas part au vote sont ceux qui ont une position particulière lors du vote : président de l'Assemblée nationale ou président de la séance par exemple.
+
+\subsubsection*{Les votants}
+
+Les votants sont représentés par la classe \verb|Voter|. Une instance de \verb|Voter| comporte le nom du votant, son prénom et son parti politique.
+
+Dans les scrutins récupérés, tous les votants ne sont pas explicitement cités. On sait par exemple que pour tel parti, 12 députés ont votés pour et 3 contre. C'est souvent le noms des 3 députés allant contre la majorité de leur parti qui sont donnés. Une seconde classe \verb|AnonymousVoter| a donc été écrite afin de représenter les votants dont on ne connait pas le nom. Cette classe étend la classe \verb|Voter| en fixant le nom et le prénom du votant à \verb|anonyme|.
+
+\subsubsection*{Les scrutins}
+
+Les scrutins sont représentés par des instances de la classe \verb|Vote|. Cette classe contient toutes les informations relatives au scrutin et qui serviront par la suite à créer la base de données, à savoir :
+\begin{itemize}
+\item[-] le numéro de la législature pendant laquelle s'est tenu le vote,
+\item[-] la date du vote,
+\item[-] le numéro du scrutin au sein de sa législature,
+\item[-] le sujet du scrutin,
+\item[-] le nombre de votants,
+\item[-] le nombre de votes exprimés,
+\item[-] la majorité absolue,
+\item[-] le nombre de votes pour,
+\item[-] le nombre de votes contre,
+\item[-] la décision finale, le scrutin a-t-il été adopté ou non,
+\item[-] le détail du scrutin, une structure qui donne pour chaque votant sa décision de vote.
+\end{itemize}
+
+\subsection{Extraction des données}
+
+Cette partie représente le c\oe{}ur du projet. En effet, c'est ici que les données concrètes vont être récupérées depuis le texte de l'analyse du scrutin et stockées dans dans des objets de type \verb|Vote| précédemment décrit. L'objet \verb|VoteBuilder| du package \verb|textanalysis| se charge de récupérer ces données.
+
+La première étape consiste à analyser les fichiers textes afin de repérer la manière dont les données sont représentées dans les analyses de scrutin. Les expressions régulières Java nous paraissent être le meilleur moyen pour repérer et récupérer les informations. En effet, grâce à la fonctionnalité de groupe, elles permettent d'isoler des données au milieu d'un pattern afin de simplement les récupérer par la suite, si le pattern est trouvé dans la zone de recherche. Les expressions régulières écrites pour ce projet se trouvent dans la classe utilitaire \verb|PatternDictionnary| du package \verb|utils|. Elles sont également toutes fournies en annexe de ce rapport. On y trouve par exemple l'expression \verb|\d{1,2}\s+\p{L}+\s+\d{4}| qui permet de reconnaître dans le texte une date au format français de cette manière :
+\begin{itemize}
+\item[-] \verb|\d{1, 2}| : capture un nombre composé d'un ou deux chiffres
+\item[-] \verb|\s+| : capture un ou plusieurs espaces
+\item[-] \verb|\p{L}+| : capture un ou plusieurs caractères unicode
+\item[-] \verb|\d{4}| : capture quatre chiffres
+\end{itemize}
+Ainsi, les dates \verb|2 mai 1992| ou \verb|10 décembre 2001| peuvent être capturées par cette expression.
+
+Ensuite, à partir du texte de l'analyse d'un scrutin, l'objet \verb|VoteBuilder| applique chacune des expressions régulières afin de trouver les parties du texte associées et d'en extraire les données. Il donne également une valeur par défaut aux champs pour lesquels le pattern n'a pas été reconnu, permettant ainsi de retrouver les erreurs ou les cas anormaux.
+
+Toujours grâce à l'aide de SBT et de son interpréteur Scala, les expressions régulières sont testées sur des bouts de textes qu'elles sont censées repérer. Elles sont donc affinées à chaque essai et sont considérées comme viables une fois qu'elles parsent avec succès un certain nombre d'exemples.
+
+\subsection{Nettoyage des données}
+
+La dernière étape avant la construction des bases consiste à nettoyer les données récupérées. Pour certains champs, cela se fait plutôt immédiatement ; pour le sujet du scrutin par exemple :
+\begin{verbatim}
+sur la motion de renvoi en commission, présentée par M. Fabius, du
+projet de loi, adopté par le Sénat, relatif à la détention provi-
+soire.
+\end{verbatim}
+Ici, il suffit de supprimer les retours à la ligne et de reconstruire les mots fractionnés en fin de ligne.
+
+Cependant, il est plus laborieux de nettoyer et transcrire une liste de votants d'un parti.
+\begin{verbatim}
+Groupe R.P.R. (259) :
+Contre : 49 membres du groupe, présents ou ayant délégué
+leur droit de vote.
+Non-votants : MM. Jean de Gaulle (président de séance) et
+Philippe Séguin (président de l’Assemblée nationale).
+Groupe U.D.F. (206) :
+Pour : 16 membres du groupe, présents ou ayant délégué
+leur droit de vote.
+Contre : 3. - MM. Jean-François Chossy, Pierre Hériaud et
+Jean-Paul Virapoullé.
+Groupe socialiste (63) :
+Contre : 2. - MM. Camille Darsières et Jean-Jacques Fil-
+leul.
+\end{verbatim}
+
+On remarque ici que plusieurs corrections sont à apporter au texte pour avoir une liste de votants propre. Voici quelques exemples de traitements à éxécuter :
+\begin{itemize}
+\item[-] retenir le groupe et la décision de vote avant de traiter la liste de votants associés,
+\item[-] retirer les sauts de lignes et tous les signes de ponctuation inutiles, soit tous les signes de ponctuation sauf les virgules (elles servent de séparateur et sont utiles pour retrouver les noms et prénoms des votants) et les tirets (ils servent aux noms composés),
+\item[-] éliminer des mots dont on est certain qu'ils ne sont pas des noms de députés (assemblée, nationale, Gouvernement, président etc.)
+\item[-] éliminer la plupart des mots qui ne commencent pas par une majuscule, tout en préservant les particules (voir \verb|Jean de Gaulle| de l'extrait précédent). Parmi les mots qui commencent par une minuscule, il faut ne préserver que ceux qui se trouvent entre deux mots commençant par une majuscule.
+\end{itemize}
+
+\vspace{0.3cm}
+Une fois que les noms et prénoms des votants sont correctement isolés, il faut aussi ajouter les anonymes qui feront partie de la liste de votants finale.
+
+\subsection{Construction des bases de données}
+
+Une fois que les objets \verb|Vote| ont correctement été créés, la dernière étape du projet consiste à construire un fichier CSV qui sera notre base de données. Celle-ci doit avoir la structure suivante :
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+Législature & Date & Numéro & Intitulé & Groupe & Nom & Prénom & Vote \\
+\hline
+\end{tabular}
+\end{center}
+
+La classe \verb|Vote| possède une méthode \verb|toCSV| qui donne le texte à inscrire dans un fichier CSV pour représenter ce scrutin. Pour obtenir une base qui correspond à un fichier, une législature complète ou même toutes les législatures, un objet \verb|CSVBuilder| est ajouté au package \verb|textanalysis|. Ce dernier possède des méthodes pour construire plusieurs types de CSV, par exemple sa méthode \verb|buildAllCSVFor| construit une arborescence similaire à celle des scrutins au format texte mais avec un fichier CSV pour chaque fichier texte.\newline
+Un exemple de CSV généré à partir d'un fichier texte est joint en annexe.

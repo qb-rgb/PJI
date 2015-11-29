@@ -1,0 +1,46 @@
+\section{Isolement des scrutins}
+
+Seule une partie des comptes-rendus comporte des données intéressantes pour ce projet. La prochaine étape est donc de trouver un moyen de filtrer les documents afin d'isoler ceux qui contiennent une ou plusieurs analyses de scrutins.
+
+\subsection{Convertion des PDFs en fichiers textes}
+
+Afin de pouvoir explorer et exploiter les données des PDFs, nous choisissons de transformer chacun d'eux en fichier texte. Pour cela, nous utilisons la librairie PDFBox (\url{https://pdfbox.apache.org/}).
+
+\subsubsection*{La librairie PDFBox}
+
+PDFBox est une librairie Java open source qui permet de travailler avec des documents PDF. Elle autorise notamment la création, la manipulation et la possibilité d'extraire du contenu de fichiers PDFs.
+
+Après quelques essais, on remarque également que PDFBox semble conserver l'ordre du texte extrait des PDFs.
+
+\subsubsection*{Procédé}
+
+L'objet \verb|PDFConverter| du package \verb|pdftotext| procède à la convertion d'un PDF en fichier texte.\newline
+Pour cela, les PDFs sont récupérés grâce à leur chemin local. Ensuite, à l'aide des classes \verb|PDDocument| et \verb|PDFTextStripper| de la librairie PDFBox, le texte du document est récupéré. Puis, pour désigner le futur fichier texte, un nouveau chemin local du type \verb|critxt/<législature>/<années>/<session>/<nom>.txt| est créé en se référant au chemin du PDF. Enfin le contenu du PDF est écrit dans un nouveau fichier texte. L'objet \verb|PDFConverter| contient une méthode \verb|convertAll| qui permet d'éxécuter ce traitement pour tous les PDFs téléchargés.
+
+\subsection{Analyse des fichiers textes pour isoler les scrutins}
+
+Tous les documents qui concernent au moins une analyse de scrutin (et donc les documents qui nous intéressent) possèdent un critère commun simple : ils ont tous, en fin de fichier, une partie annoncée par le titre : "Annexe au procès verbal". Ces fichiers sont isolés grâce à l'objet \verb|VoteFilter| du package \verb|textanalysis|.
+
+Le traitement de l'objet \verb|VoteFilter| se résume de la manière suivante : ce dernier ouvre chacun des fichiers textes pour en explorer le contenu. La phrase "Annexe au procès verbal" est recherchée dans le fichier à l'aide d'une expression régulière. Si la phrase est trouvée, un nouveau chemin du type \verb|scrutin/<législature>/<années>/<session>/<nom>.txt| est donné au fichier. L'objet comporte une méthode \verb|filterAllTxtFiles| qui isole tous les fichiers contenant l'analyse d'un ou plusieurs scrutins.
+
+Après le traitement de l'objet \verb|VoteFilter|, tous les fichiers qui contiennent des scrutins se trouvent dans le dossier \verb|scrutin|, nous pourrons donc générer les CSVs en lançant le traitement sur chacun d'eux.
+
+Enfin, pour séparer les analyses de scrutin au sein d'un même fichier, la classe \verb|VoteSeparator| du package \verb|textanalysis| est utilisée. Celle-ci permet, à partir du texte d'un compte rendu, d'isoler et de renvoyer les différentes parties de textes qui représentent les analyses des différents scrutins du document. Pour repérer ces parties de textes, on se réfère au titre "Analyse du scrutin" qui annonce l'analyse.
+
+À la fin du procédé, à partir du contenu du PDF présenté par la figure \ref{scrutin_pdf}, on obtient le texte de la figure \ref{scrutin_txt}.
+
+\newpage
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.8]{images/scrutin_pdf.png}
+\caption{Extrait de PDF présentant un scrutin}
+\label{scrutin_pdf}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\verbfile{images/006_isole.txt}
+\caption{Texte d'un scrutin récupéré par l'objet VoteSeparator}
+\label{scrutin_txt}
+\end{figure}
